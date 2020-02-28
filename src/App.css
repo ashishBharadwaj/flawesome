@@ -1,0 +1,41 @@
+.App {
+  text-align: center;
+}
+.App-link {
+  color: #61dafb;
+}
+.react-calendar
+{
+  width: 100%!important;
+  border-radius: 0.5em;
+  border: 2px solid #a0a096!important;
+  
+  box-shadow: 1px 1px 10px rgb(114, 112, 112)!important;
+  
+}
+.react-calendar__tile--active, .react-calendar__tile--now,.react-calendar__tile:enabled:hover
+{
+  border-radius: 0.5em;
+}
+
+.appContainer
+{
+  margin: 10px;
+  box-shadow: 1px 1px 10px #BBB;
+  background-image: url("./res/img/blur-background02.jpg");
+  border-radius: 0.5em;
+}
+.note-wrap
+{
+  border-radius: 0.5em;
+  box-shadow: 1px 1px 10px rgb(114, 112, 112)!important;
+}
+.note-header
+{
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+.ql-container, .ql-toolbar
+{
+  box-shadow: 1px 1px 10px rgb(114, 112, 112)
+}
