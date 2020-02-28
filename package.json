@@ -33,6 +33,7 @@
     ]
   },
   "devDependencies": {
+    "electron": "^8.0.2",
     "quill-better-table": "^1.2.8",
     "quill-image-drop-module": "^1.0.3",
     "quill-image-resize-module": "^3.0.0",
