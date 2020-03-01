@@ -15,17 +15,16 @@ Quill.register('modules/imageDrop', ImageDrop)
 class Editor extends React.Component{
     constructor(props){
         super(props)
-        this.state = { editorHtml: ""}
         this.handleChange = this.handleChange.bind(this) 
     }    
-    handleChange = html => this.setState({ editorHtml: html })
+    handleChange = html => { this.props.editorChange(html) }
     render(){
         return(
             <div className="app">
                 <ReactQuill 
                     theme={Editor.theme}
                     onChange={this.handleChange}
-                    value={this.state.editorHtml}
+                    value={this.props.editorContent}
                     modules={Editor.modules}
                     formats={Editor.formats}
                     bounds={'.app'}
