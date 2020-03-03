@@ -11,6 +11,9 @@ import Editor  from './Editor';
 import StickyNotes from './components/StickyNotes';
 import TodoApp from './Todo';
 import { EditorState} from 'draft-js';
+import InfiniteCalendar from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css'; // ake sure to import the default stylesheet
+
 const ipcRenderer = window.electron.ipcRenderer;
 
 class App extends React.Component {
@@ -127,12 +130,15 @@ todoChangeHandler(newTodoState)
             <ReflexElement flex={this.layoutState.calPane.flex}
               onResize={this.onResizePane}
               name="calPane"
-              minSize={295}
-              maxSize={330}>
-              <div className="pane-content" style={{padding: '0.5em', overflow:'hidden'}}>
-                  <Calendar
-                        onChange={this.onDateChange}
-                        value={this.state.date}/>
+              minSize={440}
+              maxSize={440}>
+              <div className="pane-content" style={{paddingTop: '0.25em', paddingLeft:'0.34em',  paddingRight:'0.34em',overflow:'hidden'}}>
+                <InfiniteCalendar
+                  width={'100%'}
+                  height={265}
+                  selected={this.state.date}
+                  onSelect= {this.onDateChange}
+                />,
               </div>
             </ReflexElement>
 

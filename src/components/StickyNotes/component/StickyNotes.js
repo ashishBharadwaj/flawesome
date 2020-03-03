@@ -41,7 +41,7 @@ function guid() {
   * @desc: Tranforms editor state to text content
   **/
   function transformContentState(notes) {
-    const clonedNotes = Object.assign([], notes);
+    const clonedNotes = tranformEditorState(Object.assign([], notes));
     const data = clonedNotes.map((note) => {
       note.text = note.editorState.getCurrentContent().getPlainText();
       return note;
