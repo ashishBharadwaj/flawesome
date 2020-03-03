@@ -8,7 +8,7 @@ import {
 import 'react-reflex/styles.css';
 import Calendar from 'react-calendar';
 import Editor  from './Editor';
-import ReactStickies from 'react-stickies';
+import StickyNotes from './components/StickyNotes';
 import TodoApp from './Todo';
 import { EditorState} from 'draft-js';
 const ipcRenderer = window.electron.ipcRenderer;
@@ -21,6 +21,7 @@ class App extends React.Component {
    this.onNoteChange = this.onNoteChange.bind(this);
    this.onDateChange = this.onDateChange.bind(this);   
    this.onResizePane = this.onResizePane.bind(this);
+   this.getSerilizableState = this.getSerilizableState.bind(this);
    this.editorChangehandler = this.editorChangehandler.bind(this);
    this.todoChangeHandler = this.todoChangeHandler.bind(this);
    this.layoutState = this.getLayoutState();
@@ -56,11 +57,7 @@ onResizePane (event) {
       JSON.stringify(this.layoutState))
 }
 onDateChange (newDate)  {
-  let val = Object.assign({},this.state);
-  for(let i=0;i<val.notes.length;i++)
-  {
-    val.notes[i].editorState = null;
-  }
+  let val = this.getSerilizableState(Object.assign({},this.state));
   ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
   let nextstate = ipcRenderer.sendSync('getAppState',this.getDateKeyString(newDate));
   if(nextstate.notes.length === 0)
@@ -101,15 +98,24 @@ guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 onNoteChange (newNotes) {
-  this.setState({ notes: newNotes});
+  this.setState({ notes: newNotes}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.getSerilizableState(this.state))) });
 }  
+getSerilizableState(currentState)
+{
+  let val = Object.assign({},currentState);
+  for(let i=0;i<val.notes.length;i++)
+  {
+    delete val.notes[i].editorState;
+  }
+  return val;
+}
 editorChangehandler(newContent)
 {
-  this.setState({ editorState: newContent});
+  this.setState({ editorState: newContent}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.getSerilizableState(this.state))) });
 }
 todoChangeHandler(newTodoState)
 {
-  this.setState({todoState: newTodoState})
+  this.setState({todoState: newTodoState}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.getSerilizableState(this.state))) })
 }
 
   render(){
@@ -150,7 +156,7 @@ todoChangeHandler(newTodoState)
               onResize={this.onResizePane}
               name="editorPane">
               <div className="pane-content" style={{padding:'0.5em', height:'88%'}}>
-                <Editor editorContent={this.state.editorState} editorChange={this.editorChangehandler}/>
+                <Editor editorContent={this.state.editorState} editorChange={this.editorChangehandler} />
               </div>
 
             </ReflexElement>
@@ -158,8 +164,8 @@ todoChangeHandler(newTodoState)
             <ReflexSplitter/>
 
             <ReflexElement className="bottom-pane">
-              <div className="pane-content">
-                <ReactStickies
+              <div className="pane-content" style={{padding:'0.5em'}}>
+                <StickyNotes
                     notes={this.state.notes}
                     onChange={this.onNoteChange}/>
               </div>

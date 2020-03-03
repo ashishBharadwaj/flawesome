@@ -58,7 +58,7 @@ function Todo(props) {
         const newTasks = [...tasks];
         newTasks[index].completed = !newTasks[index].completed;
         setTasks(newTasks);
-        props.taskChanged({tasksRemaining:newTasks.filter(task => !task.completed), tasks:newTasks})
+        props.taskChanged({tasksRemaining:newTasks.filter(task => !task.completed).length, tasks:newTasks})
     };
 
     const removeTask = index => {
