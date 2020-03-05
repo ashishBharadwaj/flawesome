@@ -1,11 +1,11 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Donna App",
+  "name": "Donna Productivity Tool",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "icon.jpg",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/jpg"
     },
     {
       "src": "logo192.png",

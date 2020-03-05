@@ -1,5 +1,4 @@
 .todo-container{
-    background: rgb(41, 33, 33);
     width: 92%;
     border-radius: 0.5em;
     padding: 20px 13px;
@@ -9,10 +8,12 @@
 }
     
 .task{
-    border: 1px solid white;
-    border-radius: 0.5em;
+    border-radius: 0.25em;
     padding: 0.5em;
     margin: 0.5em;
+    border: 1px solid white;
+    box-shadow: 1px 1px 10px rgb(114, 112, 112);
+    color: black;
 }
 
 .task button{
@@ -30,14 +31,17 @@
     margin: 0.5em;
     font-size: 2em;
     text-align: center;
+    color: white;
 }
-
 .create-task input[type=text]{
     margin: 2.5em 2em;
     width: 80%;
     outline: none;
     border: none;
-    padding: 0.7em;
+    padding: 0.7em;    
+    border: 2px solid white;
+    box-shadow: 1px 1px 10px rgb(114, 112, 112);
+    border-radius: 0.25em;
 }
 .todo_item_text
 {

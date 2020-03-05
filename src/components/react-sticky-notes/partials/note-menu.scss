@@ -1,0 +1,33 @@
+@keyframes shadowanim {
+    0% {box-shadow:0px 0px 0px 25px inset rgba(0,0,0,0.15),0px 0px 0px 15px inset rgba(0,0,0,0.15),0px 0px 0px 5px inset rgba(0,0,0,0.15);opacity: 0.2;}
+    20% {opacity: 0.9; }
+    50% {opacity: 1; }
+    70% {opacity: 0.9; }
+    100% {box-shadow:0px 0px 0px 0px inset rgba(0,0,0,0.15); opacity: 0.2; }
+}
+@mixin noteMenu() {
+    &--colors{
+        flex-grow: 1;
+        &__color{
+            text-indent: -99999px;
+            cursor: pointer;
+            margin: 1px;
+            width: 3.6em;
+            height: 3.6em;
+            border-radius: 50%;
+            border: none;
+            outline: none;
+            transition: all 0.4s linear;
+            box-shadow: 0px 0px 0px 5px inset rgba(0,0,0,.15);
+            &:hover,&:focus{
+                box-shadow: 0px 0px 0px 10px inset rgba(0,0,0,.15);
+            }
+            &--selected{
+                animation-name: shadowanim;
+                animation-duration: 2s;
+                animation-iteration-count: 100;
+                opacity: .75;
+            }
+        }
+    }
+}

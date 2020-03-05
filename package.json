@@ -1,7 +1,11 @@
 {
-  "name": "donna",
+  "name": "donna.ai",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Ashish Bharadwaj J",
+    "email": "ashishbharadwaj@icloud.com"
+  },
   "main": "public/electronstart.js",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -34,10 +38,12 @@
     ]
   },
   "devDependencies": {
+    "about-window": "^1.13.2",
     "draft-js": "^0.11.4",
     "electron": "^8.0.2",
     "lz-string": "^1.4.4",
     "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
     "quill-better-table": "^1.2.8",
     "quill-image-drop-module": "https://github.com/ashishBharadwaj/quill-image-drop-module",
     "quill-image-resize-module": "^3.0.0",
