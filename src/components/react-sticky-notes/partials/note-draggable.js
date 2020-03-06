@@ -1,6 +1,6 @@
 import React from 'react';
-import Draggable from './../utils/draggable';
-import { h } from './../utils';
+import Draggable from '../utils/draggable';
+import { h } from '../utils';
 class NoteDraggable extends React.Component {
 	draggable = null
 	constructor(props) {

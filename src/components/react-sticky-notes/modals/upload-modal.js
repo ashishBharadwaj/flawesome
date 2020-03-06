@@ -1,4 +1,4 @@
-import { h, getElementStyle, parseCSV } from './../utils';
+import { h, getElementStyle, parseCSV } from '../utils';
 import React, { Component, Fragment } from 'react';
 export class UploadModal extends Component{
     constructor(){

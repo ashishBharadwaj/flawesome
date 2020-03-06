@@ -1,4 +1,4 @@
-import { h, nlToBr, getElementStyle, getCurrentDateTime } from './../utils';
+import { h, nlToBr, getElementStyle, getCurrentDateTime } from '../utils';
 function NoteText({ data, index, prefix, callbacks }) {
     return h('div',{
         className:`${prefix}--text`,

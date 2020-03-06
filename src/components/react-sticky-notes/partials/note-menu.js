@@ -1,4 +1,4 @@
-import { h, getElementStyle } from './../utils';
+import { h, getElementStyle } from '../utils';
 function NoteMenu(props) {
     const { data, index, prefix, colorCodes, callbacks } = props;
     return h('div', {

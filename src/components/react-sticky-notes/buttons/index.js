@@ -1,4 +1,4 @@
-import { h, getNoteTitle } from './../utils';
+import { h, getNoteTitle } from '../utils';
 
 export function ButtonAdd({prefix, data, icons, callbacks}){
     return h('button',{

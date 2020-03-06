@@ -1,5 +1,5 @@
-import { h, getElementStyle } from './../utils';
-import NavBar from './../navbar';
+import { h, getElementStyle } from '../utils';
+import NavBar from '../navbar';
 import NoteDot from '../partials/note-dot';
 export function BubbleView(props){
     return [

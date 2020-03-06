@@ -1,4 +1,4 @@
-import { h, getElementStyle } from './../utils';
+import { h, getElementStyle } from '../utils';
 import NoteText from './note-text';
 import NoteMenu from './note-menu';
 export default function NoteBody(props) {

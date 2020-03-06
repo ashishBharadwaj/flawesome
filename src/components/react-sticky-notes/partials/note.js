@@ -3,7 +3,7 @@ import { h, getElementStyle } from '../utils';
 import NoteDraggable from './note-draggable';
 import NoteHeader from './note-header';
 import NoteBody from './note-body';
-import { ButtonAdd, ButtonTitle, ButtonMenu, ButtonHideShow, ButtonTrash } from './../buttons' ;
+import { ButtonAdd, ButtonTitle, ButtonMenu, ButtonHideShow, ButtonTrash } from '../buttons' ;
 class Note extends React.Component{
     constructor(props){
         super(props);

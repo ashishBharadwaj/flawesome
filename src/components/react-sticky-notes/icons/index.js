@@ -1,4 +1,4 @@
-import { h, getElementStyle } from './../utils';
+import { h, getElementStyle } from '../utils';
 const iconsClassName = "material-icons";
 export const add = h('i',{ className: iconsClassName, style: getElementStyle('icon') },'add');
 export const trash = h('i',{ className: iconsClassName, style: getElementStyle('icon') },'delete_outlined');

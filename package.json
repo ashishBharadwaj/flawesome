@@ -6,21 +6,27 @@
     "name": "Ashish Bharadwaj J",
     "email": "ashishbharadwaj@icloud.com"
   },
-  "main": "public/electronstart.js",
+  "main": "public/electron.js",
+  "homepage": "./",
+  "icon": "public/icon.png",
+  "description": "donna.ai is a Modern Productivity Tool",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-scripts": "3.3.0"
+    "react-scripts": "^3.4.0",   
+    "about-window": "^1.13.2",
+    "quill": "1.3.7"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-start": "electron ."
+    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "package": "electron-builder build --win -c.extraMetadata.main=build/electron.js --publish never"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,19 +44,34 @@
     ]
   },
   "devDependencies": {
-    "about-window": "^1.13.2",
     "draft-js": "^0.11.4",
     "electron": "^8.0.2",
-    "lz-string": "^1.4.4",
+    "electron-builder": "^22.4.0",
     "moment": "^2.24.0",
     "node-sass": "^4.13.1",
     "quill-better-table": "^1.2.8",
     "quill-image-drop-module": "https://github.com/ashishBharadwaj/quill-image-drop-module",
     "quill-image-resize-module": "^3.0.0",
-    "react-grid-layout": "^0.18.2",
     "react-infinite-calendar": "^2.3.1",
     "react-quill": "^1.3.3",
     "react-reflex": "^3.0.20"
   },
-  "pre-push": []
+  "pre-push": [],
+  "build": {
+    "appId": "com.donna.ai",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*",
+      "build/icon.*"
+    ],
+    "publish": {
+      "provider": "github",
+      "repo": "donna",
+      "owner": "ashishbharadwaj"
+    },
+    "win": {
+      "target": "NSIS",
+      "icon": "./build/icon.png"
+    }
+  }
 }

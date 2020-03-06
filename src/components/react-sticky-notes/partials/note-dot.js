@@ -1,5 +1,5 @@
 import React from 'react';
-import { h, getElementStyle, getNoteTitle } from './../utils';
+import { h, getElementStyle, getNoteTitle } from '../utils';
 import NoteDraggable from './note-draggable';
 export default class NoteDot extends React.Component{
     constructor(props){

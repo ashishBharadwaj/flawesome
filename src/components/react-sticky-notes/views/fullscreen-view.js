@@ -1,5 +1,5 @@
-import { h, getElementStyle } from './../utils';
-import NavBar from './../navbar';
+import { h, getElementStyle } from '../utils';
+import NavBar from '../navbar';
 import NoteBody from '../partials/note-body';
 export function FullscreenView(props){
     return h('div', {

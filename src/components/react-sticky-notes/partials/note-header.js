@@ -1,4 +1,4 @@
-import { h, getElementStyle } from './../utils';
+import { h, getElementStyle } from '../utils';
 function NoteHeader(props) {
     return h('div',{
         className: props.prefix,
