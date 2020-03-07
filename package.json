@@ -9,7 +9,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "icon": "public/icon.png",
-  "description": "donna.ai is a Modern Productivity Tool",
+  "description": "donna.ai is a modern productivity tool that will help you organise your day today work and thoughts",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",

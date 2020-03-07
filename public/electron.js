@@ -106,7 +106,7 @@ function createWindow () {
                 },
                 {type:'separator'}, 
                 {
-                    label: "Report A Bug?",
+                    label: "Report A Bug ?",
                     click:()=> { 
                         shell.openExternal('https://docs.google.com/forms/d/e/1FAIpQLSeUpOj6hMS8H8sfiju7OzADnb8Q7Frw5Bw55tmYMSIuA4NJpQ/viewform?usp=sf_link')
                     } 
