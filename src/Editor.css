@@ -42,6 +42,12 @@
     border: 1px solid #ccc;
     border-radius: 0.5em;
   }
-  /* .app .ql-editor {
-    min-height: 18em;
-  } */
+.app .ql-editor {
+  background-color: white;
+    height: auto!important;
+    min-height: 100%!important;
+    overflow-y: hidden!important;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    box-shadow: 1px 1px 10px rgb(114, 112, 112)!important;
+  }

@@ -35,7 +35,7 @@
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
 }
-.ql-container, .ql-toolbar
+.ql-toolbar
 {
   box-shadow: 1px 1px 10px rgb(114, 112, 112)
 }
