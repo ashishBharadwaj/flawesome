@@ -2,7 +2,7 @@ import React from 'react'
 import ReactQuill, {Quill} from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import './Editor.css'
-import  ImageResize  from 'quill-image-resize-module'
+import  ImageResize  from './components/imge-resize/ImageResize'
 import {ImageDrop}  from 'quill-image-drop-module'
 // import QuillBetterTable from 'quill-better-table'
 
@@ -16,8 +16,11 @@ class Editor extends React.Component{
     constructor(props){
         super(props)
         this.handleChange = this.handleChange.bind(this) 
-    }    
-    handleChange = html => { this.props.editorChange(html) }
+    }
+    handleChange (html)
+    { 
+        this.props.editorChange(html) 
+    }
     render(){
         return(
             <div className="app">
@@ -52,7 +55,7 @@ Editor.modules = {
       matchVisual: false,
     },
     imageResize: {
-        modules: ['Resize', 'DisplaySize', 'Toolbar'],
+        modules: ['Resize', 'DisplaySize', 'Toolbar'],        
     },
     imageDrop: true,
     // table: false,
@@ -74,7 +77,8 @@ Editor.formats = [
     'header', 'font', 'size',
     'bold', 'italic', 'underline', 'strike', 'blockquote',
     'list', 'bullet', 'indent',
-    'link', 'image', 'video'
+    'link', 'image', 'video',
+    'alt','height','width','style'
 ]
 
 export default Editor;
