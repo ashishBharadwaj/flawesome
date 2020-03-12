@@ -79,7 +79,7 @@ class ReactStickyNotes extends Component {
 		const index=data?items.findIndex(item=>item.id===data.id)+1:items.length;
 		let lastItemX = items && items.length > 1 ? items[items.length-1].position.x : 0;
 		let lastItemY = items && items.length > 1 ? items[items.length-1].position.y : 0; 
-		console.log(e.currentTarget.parentElement.getBoundingClientRect());
+		//console.log(e.currentTarget.parentElement.getBoundingClientRect());
 		this.dispatch({
 			type: 'add',
 			payload: {
