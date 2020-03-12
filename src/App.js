@@ -103,7 +103,7 @@ todoChangeHandler(newTodoState)
                   height={265}
                   selected={this.state.date}
                   onSelect= {this.onDateChange}
-                />,
+                />
               </div>
             </ReflexElement>
 
