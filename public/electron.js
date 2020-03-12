@@ -3,7 +3,6 @@ const {app, BrowserWindow, Menu,shell} = require('electron');
 const { ipcMain } = require('electron')
 const Store = require('./store');
 const join = require('path').join;
-const url = require('url');
 const d = new Date();
 const dateKey = (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" +  d.getDate());
 
