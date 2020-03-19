@@ -6,24 +6,25 @@ import {
   ReflexElement
 } from 'react-reflex';
 import 'react-reflex/styles.css';
-import Calendar from 'react-calendar';
 import Editor  from './Editor';
-import ReactStickies from 'react-stickies';
 import TodoApp from './Todo';
+import InfiniteCalendar from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css'; // ake sure to import the default stylesheet
+import ReactStickyNotes from './components/react-sticky-notes';
+
+const ipcRenderer = window.electron.ipcRenderer;
 
 class App extends React.Component {
  constructor(props)
  {
    super(props);
-   this.state = {
-    date: new Date(),
-    editorState: "",
-    notes: [],
-   }
-   this.onNoteChange = this.onNoteChange.bind(this)
-   this.onDateChange = this.onDateChange.bind(this)   
-   this.onResizePane = this.onResizePane.bind(this)
-   this.layoutState = this.getLayoutState()
+   this.state = ipcRenderer.sendSync('getAppState', this.getDateKeyString(new Date()));
+   this.onNoteChange = this.onNoteChange.bind(this);
+   this.onDateChange = this.onDateChange.bind(this);   
+   this.onResizePane = this.onResizePane.bind(this);
+   this.editorChangehandler = this.editorChangehandler.bind(this);
+   this.todoChangeHandler = this.todoChangeHandler.bind(this);
+   this.layoutState = this.getLayoutState();
  }
  
 
@@ -36,14 +37,14 @@ getLayoutState () {
   }
   return {
     calPane: {
-      flex: 0.4
+      flex: 0.57
     },
     rightPane: {
       flex: 0.6
     },
     editorPane:
     {
-      flex: 0.67
+      flex: 0.57
     }
   }
 }
@@ -55,8 +56,36 @@ onResizePane (event) {
     "re-flex-config",
       JSON.stringify(this.layoutState))
 }
- onDateChange = newDate => this.setState({ date: newDate });
- onNoteChange = newnotes =>  this.setState({ notes: newnotes});
+onDateChange (newDate)  {
+  let val = Object.assign({},this.state);
+  ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
+  let nextstate = ipcRenderer.sendSync('getAppState',this.getDateKeyString(newDate));  
+  this.setState(nextstate);
+}
+getDateKeyString(date)
+{
+  return (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  date.getDate())
+}
+onNoteChange (type, payload, newNotes) {
+  this.setState({ notes: newNotes}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state))});
+}  
+getSerilizableState(currentState)
+{
+  let val = Object.assign({},currentState);
+  for(let i=0;i<val.notes.length;i++)
+  {
+    delete val.notes[i].editorState;
+  }
+  return val;
+}
+editorChangehandler(newContent)
+{
+  this.setState({ editorState: newContent}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) });
+}
+todoChangeHandler(newTodoState)
+{
+  this.setState({todoState: newTodoState}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) })
+}
 
   render(){
     return(
@@ -67,20 +96,22 @@ onResizePane (event) {
             <ReflexElement flex={this.layoutState.calPane.flex}
               onResize={this.onResizePane}
               name="calPane"
-              minSize={295}
-              maxSize={330}>
-              <div className="pane-content" style={{padding: '0.5em', overflow:'hidden'}}>
-                  <Calendar
-                        onChange={this.onDateChange}
-                        value={this.state.date}/>
+              maxSize={420}>
+              <div className="pane-content calendarContainer">
+                <InfiniteCalendar
+                  width={'100%'}
+                  height={265}
+                  selected={this.state.date}
+                  onSelect= {this.onDateChange}
+                />
               </div>
             </ReflexElement>
 
             <ReflexSplitter/>
 
             <ReflexElement className="bottom-pane">              
-              <div className="pane-content" style={{padding: '0.5em', overflowX:'hidden'}}>
-                  <TodoApp />
+              <div className="pane-content" style={{padding: '0.5em', overflowX:'hidden', minWidth: '287px'}}>
+                  <TodoApp todoContent={this.state.todoState} taskChanged={this.todoChangeHandler}/>
               </div>
             </ReflexElement>
 
@@ -96,7 +127,7 @@ onResizePane (event) {
               onResize={this.onResizePane}
               name="editorPane">
               <div className="pane-content" style={{padding:'0.5em', height:'88%'}}>
-                <Editor />
+                <Editor editorContent={this.state.editorState} editorChange={this.editorChangehandler} />
               </div>
 
             </ReflexElement>
@@ -104,10 +135,12 @@ onResizePane (event) {
             <ReflexSplitter/>
 
             <ReflexElement className="bottom-pane">
-              <div className="pane-content">
-                <ReactStickies
+              <div className="pane-content" style={{padding:'0.5em'}}>
+                <ReactStickyNotes notes={this.state.notes}
+                    onChange={this.onNoteChange} />
+                {/* <StickyNotes
                     notes={this.state.notes}
-                    onChange={this.onNoteChange}/>
+                    onChange={this.onNoteChange}/> */}
               </div>
             </ReflexElement>
 

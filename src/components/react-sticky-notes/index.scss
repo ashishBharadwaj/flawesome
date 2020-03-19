@@ -1,0 +1,23 @@
+@import './navbar/index.scss';
+@import './partials/note.scss';
+@import './partials/notes.scss';
+@import './partials/note-header.scss';
+@import './partials/note-text.scss';
+@import './partials/note-bubble.scss';
+@import './partials/note-menu.scss';
+@import './modals/upload-modal.scss';
+@import './views/bubble-view.scss';
+.rs-notes{
+    *,*::before,*::after{
+        box-sizing: border-box;
+    }
+    @include notes();
+    @include note();
+    @include navbar();
+    @include noteHeader();
+    @include noteText();
+    @include noteMenu();
+    @include noteBubble();
+    @include uploadForm();
+    @include bubbleView();
+}

@@ -37,32 +37,36 @@ function CreateTask({ addTask }) {
     );
 }
 
-function Todo() {
-    const [tasksRemaining, setTasksRemaining] = useState(0);
-    const [tasks, setTasks] = useState([
-        
-    ]);
+function Todo(props) {
+    const [tasksRemaining, setTasksRemaining] = useState(props.todoContent.tasksRemaining);
+    const [tasks, setTasks] = useState(props.todoContent.tasks);
 
     useEffect(() => { setTasksRemaining(tasks.filter(task => !task.completed).length) }, [tasks]);
 
+    useEffect(() => {
+        setTasks(props.todoContent.tasks);
+      }, [props.todoContent.tasks]);
+     
 
     const addTask = title => {
         const newTasks = [...tasks, { title, completed: false }];
-        setTasks(newTasks);
+        setTasks(newTasks);        
+        props.taskChanged({tasksRemaining:newTasks.filter(task => !task.completed).length, tasks:newTasks})
     };
 
     const completeTask = index => {
         const newTasks = [...tasks];
         newTasks[index].completed = !newTasks[index].completed;
         setTasks(newTasks);
+        props.taskChanged({tasksRemaining:newTasks.filter(task => !task.completed).length, tasks:newTasks})
     };
 
     const removeTask = index => {
         const newTasks = [...tasks];
         newTasks.splice(index, 1);
         setTasks(newTasks);
+        props.taskChanged({tasksRemaining:newTasks.filter(task => !task.completed), tasks:newTasks})
     };
-
     return (
         <div className="todo-container">
             <div className="header">Pending tasks ({tasksRemaining})</div>

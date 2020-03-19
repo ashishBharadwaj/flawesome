@@ -1,0 +1,38 @@
+@mixin noteBubble() {
+    &--note{
+        &__bubble{
+            cursor: move;
+            border: none;
+            outline: none;
+            position: relative;
+            &::before{
+                display: block;
+                opacity: 0;
+                content: attr(title);
+                transform: translate(-50%, -50%);
+                transform-origin: 0 0;
+                transition: all linear .4s;
+                overflow: hidden;
+                background-color: var(--background-color);
+                white-space: nowrap;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                padding: 5px 8px;
+                border-radius: 5px;
+                color: rgba(255,255,255,.75);
+                font-size: .9em;
+            }
+            &:hover{
+                &::before{
+                    opacity: 1;
+                }
+            }
+            &:focus, &:active{
+                opacity: .5;
+                z-index: 9999;
+            }
+        }
+    }
+    
+}

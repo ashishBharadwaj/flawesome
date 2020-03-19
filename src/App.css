@@ -35,7 +35,110 @@
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
 }
-.ql-container, .ql-toolbar
+.ql-toolbar
 {
   box-shadow: 1px 1px 10px rgb(114, 112, 112)
+}
+
+.reflex-element::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #F5F5F5;
+  border-radius: 0.5em;
+} 
+.reflex-element::-webkit-scrollbar-thumb {
+  background-color: rgb(132, 147, 165);
+  border-radius: 0.5em;
+}
+.reflex-element::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+
+}
+
+/* //Calendar styles  */
+.calendarContainer{
+  padding-top: 0.5em;
+  padding-left:0.5em;
+  padding-right:0.5em;
+  overflow: hidden;
+  min-width: 287px;
+}
+
+.Cal__Container__root{  
+  border-radius: 0.5em;
+  box-shadow: 1px 1px 10px rgb(114, 112, 112)!important;
+}
+.Cal__Header__root{
+  /* background: black!important; */
+  background: none!important;
+  padding-top: 10px!important;
+  padding-left: 10px!important;
+  padding-right: 10px!important;
+  padding-bottom: 5px!important;
+  min-height: 0px!important;
+  text-shadow:  4px 4px 2px rgba(152, 150, 150, 1);;
+}
+.Cal__Header__year{
+  color:white!important;
+}
+.Cal__Weekdays__root{
+  background: #411515!important; 
+  padding-right: 6px!important;
+}
+
+.Cal__MonthList__root::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #F5F5F5;
+  border-radius: 0.5em;
+} 
+.Cal__MonthList__root::-webkit-scrollbar-thumb {
+  background-color: rgb(132, 147, 165);
+  border-radius: 0.5em;
+}
+.Cal__MonthList__root::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius:.5em;
+}
+.Cal__Today__root{
+  background: none!important; 
+  color: blue!important;
+  border-radius: .25em;
+  box-shadow: 1px 1px 10px rgb(114, 112, 112)!important;
+}
+.Cal__Years__list::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #F5F5F5;
+  border-radius: 0.5em;
+} 
+.Cal__Years__list::-webkit-scrollbar-thumb {
+  background-color: rgb(132, 147, 165);
+  border-radius: 0.5em;
+}
+.Cal__Years__list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+  border-radius:.5em;
+}
+.Cal__Day__selection{
+  background: red!important;
+}
+.Cal__Years__selected{
+  background-color: red!important;
+}
+
+
+/* Sticky Notes Styles */
+.rs-notes--navbar__item--button__pageview, .rs-notes--navbar__item--button__upload{
+  display:none!important;
+}
+.rs-notes--note{
+  box-shadow: 1px 1px 10px rgb(114, 112, 112)!important;
+  border-radius:.5em !important;
+}
+.rs-notes--navbar{
+  margin-bottom: 5px !important;
 }
