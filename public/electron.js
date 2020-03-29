@@ -50,6 +50,11 @@ function createWindow () {
         // console.log(appState)
         store.set(dateKey, appState);
     });
+    // Event handler for asynchronous incoming messages
+    ipcMain.handle('getSearchResult', async (event, searchTerm) => {
+        const result = await filterSearchTerm(searchTerm)
+        return result
+     })
     const selectionMenu = Menu.buildFromTemplate([
         {role: 'copy'},
         {type: 'separator'},
@@ -117,6 +122,75 @@ function createWindow () {
     //win.webContents.openDevTools();
     // and load the index.html of the app.     win.loadFile('index.html')   
 } 
+async function filterSearchTerm(searchTerm){
+    let data = store.getAll();
+    data = getArrangedData(data);
+    data = data.filter((dat)=>{
+        return dat.searchContent.toLowerCase().includes(searchTerm.toLowerCase())
+    })
+    return data;
+}
+function getArrangedData(data){
+    let newData = [];
+    for(let key in data)
+    {
+        if(data.hasOwnProperty(key)){
+            let dat = data[key];
+            if(dat.editorState)
+            {
+                let cleanState = dat.editorState.replace(/\s*\<.*?\>\s*/g, " ");
+                if(cleanState){
+                    newData.push(
+                        {
+                            dateKey: key, 
+                            searchContent: cleanState, 
+                            elementType: 'Editor', 
+                            elementProps:{}
+                        }
+                    );
+                }
+                for(let todoKey in dat.todoState.tasks){
+                    if(dat.todoState.tasks.hasOwnProperty(todoKey)){
+                        if(dat.todoState.tasks[todoKey].title){
+                            newData.push(
+                                {
+                                    dateKey: key, 
+                                    searchContent: dat.todoState.tasks[todoKey].title, 
+                                    elementType: 'TodoList', 
+                                    elementProps: {
+                                        index: todoKey, 
+                                        isComplete: dat.todoState.tasks[todoKey].complete
+                                    }
+                                }
+                            );
+                        }
+                    }                        
+                }
+                for(let noteKey in dat.notes){
+                    if(dat.notes.hasOwnProperty(noteKey)){
+                        let note = dat.notes[noteKey];
+                        if(note.text){
+                            newData.push(
+                                {
+                                    dateKey: key, 
+                                    searchContent: note.text,
+                                    elementType: 'Notes', 
+                                    elementProps: {
+                                        id: note.id,
+                                        index: noteKey
+                                    }
+                                }
+                            );
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+
+    return newData;
+}
 function closeApp()
 {
     app.quit();
