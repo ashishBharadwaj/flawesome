@@ -89,66 +89,63 @@ todoChangeHandler(newTodoState)
 
   render(){
     return(
-      <ReflexContainer orientation="vertical" className="appContainer">
+        <ReflexContainer orientation="vertical" className="appContainer">
 
-        <ReflexElement maxSize={400}>
-          <ReflexContainer orientation="horizontal">
-            <ReflexElement flex={this.layoutState.calPane.flex}
-              onResize={this.onResizePane}
-              name="calPane"
-              maxSize={420}>
-              <div className="pane-content calendarContainer">
-                <InfiniteCalendar
-                  width={'100%'}
-                  height={265}
-                  selected={this.state.date}
-                  onSelect= {this.onDateChange}
-                />
-              </div>
-            </ReflexElement>
+          <ReflexElement maxSize={400}>
+            <ReflexContainer orientation="horizontal">
+              <ReflexElement flex={this.layoutState.calPane.flex}
+                onResize={this.onResizePane}
+                name="calPane"
+                maxSize={420}>
+                <div className="pane-content calendarContainer">
+                  <InfiniteCalendar
+                    width={'100%'}
+                    height={265}
+                    selected={this.state.date}
+                    onSelect= {this.onDateChange}
+                  />
+                </div>
+              </ReflexElement>
 
-            <ReflexSplitter/>
+              <ReflexSplitter/>
 
-            <ReflexElement className="bottom-pane">              
-              <div className="pane-content" style={{padding: '0.5em', overflowX:'hidden', minWidth: '287px'}}>
-                  <TodoApp todoContent={this.state.todoState} taskChanged={this.todoChangeHandler}/>
-              </div>
-            </ReflexElement>
+              <ReflexElement className="bottom-pane">              
+                <div className="pane-content" style={{padding: '0.5em', overflowX:'hidden', minWidth: '287px'}}>
+                    <TodoApp todoContent={this.state.todoState} taskChanged={this.todoChangeHandler}/>
+                </div>
+              </ReflexElement>
 
-          </ReflexContainer>
-        </ReflexElement>
+            </ReflexContainer>
+          </ReflexElement>
 
-        <ReflexSplitter/>
+          <ReflexSplitter/>
 
-        <ReflexElement>
-          <ReflexContainer orientation="horizontal">
+          <ReflexElement>
+            <ReflexContainer orientation="horizontal">
 
-            <ReflexElement flex={this.layoutState.editorPane.flex}
-              onResize={this.onResizePane}
-              name="editorPane">
-              <div className="pane-content" style={{padding:'0.5em', height:'88%'}}>
-                <Editor editorContent={this.state.editorState} editorChange={this.editorChangehandler} />
-              </div>
+              <ReflexElement flex={this.layoutState.editorPane.flex}
+                onResize={this.onResizePane}
+                name="editorPane">
+                <div className="pane-content" style={{padding:'0.5em', height:'88%'}}>
+                  <Editor editorContent={this.state.editorState} editorChange={this.editorChangehandler} />
+                </div>
 
-            </ReflexElement>
+              </ReflexElement>
 
-            <ReflexSplitter/>
+              <ReflexSplitter/>
 
-            <ReflexElement className="bottom-pane">
-              <div className="pane-content" style={{padding:'0.5em'}}>
-                <ReactStickyNotes notes={this.state.notes}
-                    onChange={this.onNoteChange} />
-                {/* <StickyNotes
-                    notes={this.state.notes}
-                    onChange={this.onNoteChange}/> */}
-              </div>
-            </ReflexElement>
+              <ReflexElement className="bottom-pane">
+                <div className="pane-content" style={{padding:'0.5em'}}>
+                  <ReactStickyNotes notes={this.state.notes}
+                      onChange={this.onNoteChange} />
+                </div>
+              </ReflexElement>
 
-          </ReflexContainer>
+            </ReflexContainer>
 
-        </ReflexElement>
-      </ReflexContainer>
-
+          </ReflexElement>
+        </ReflexContainer>
+              
     );
   }  
 }

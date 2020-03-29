@@ -36,7 +36,10 @@ class Store {
     }
     return this.data[key];
   }
-  
+  getAll()
+  {
+    return this.data;
+  }  
   // ...and this will set it
   set(key, val) {
     this.data[key] = JSON.parse(val);    
