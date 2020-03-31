@@ -84,6 +84,17 @@ function createWindow () {
 
     const mainMenu = Menu.buildFromTemplate([
         {
+            label:"Tools",
+            submenu:[
+                {
+                    label: "Search (ctrl+space)",
+                    click:()=>{
+                        win.webContents.send("open-search")
+                    }
+                }
+            ]
+        },
+        {
             label: "About",
             submenu:[
                 {
@@ -119,7 +130,7 @@ function createWindow () {
         }
     ]);
     Menu.setApplicationMenu(mainMenu);
-    //win.webContents.openDevTools();
+    // win.webContents.openDevTools();
     // and load the index.html of the app.     win.loadFile('index.html')   
 } 
 async function filterSearchTerm(searchTerm){

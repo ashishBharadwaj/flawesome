@@ -11,7 +11,11 @@ import TodoApp from './Todo';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css'; // ake sure to import the default stylesheet
 import ReactStickyNotes from './components/react-sticky-notes';
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import Spotlight from "./components/spotlight-search/Spotlight";
 
+library.add(faSearch);
 const ipcRenderer = window.electron.ipcRenderer;
 
 class App extends React.Component {
@@ -24,6 +28,7 @@ class App extends React.Component {
    this.onResizePane = this.onResizePane.bind(this);
    this.editorChangehandler = this.editorChangehandler.bind(this);
    this.todoChangeHandler = this.todoChangeHandler.bind(this);
+   this.searchHit = this.searchHit.bind(this);
    this.layoutState = this.getLayoutState();
  }
  
@@ -69,15 +74,6 @@ getDateKeyString(date)
 onNoteChange (type, payload, newNotes) {
   this.setState({ notes: newNotes}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state))});
 }  
-getSerilizableState(currentState)
-{
-  let val = Object.assign({},currentState);
-  for(let i=0;i<val.notes.length;i++)
-  {
-    delete val.notes[i].editorState;
-  }
-  return val;
-}
 editorChangehandler(newContent)
 {
   this.setState({ editorState: newContent}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) });
@@ -86,10 +82,12 @@ todoChangeHandler(newTodoState)
 {
   this.setState({todoState: newTodoState}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) })
 }
-
+searchHit(searchItem){
+  this.onDateChange(new Date(searchItem.dateKey));
+}
   render(){
     return(
-        <ReflexContainer orientation="vertical" className="appContainer">
+        [<ReflexContainer orientation="vertical" className="appContainer">
 
           <ReflexElement maxSize={400}>
             <ReflexContainer orientation="horizontal">
@@ -144,7 +142,8 @@ todoChangeHandler(newTodoState)
             </ReflexContainer>
 
           </ReflexElement>
-        </ReflexContainer>
+        </ReflexContainer>,
+        <Spotlight searchHit={this.searchHit}/>]
               
     );
   }  
