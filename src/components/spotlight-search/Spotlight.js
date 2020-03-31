@@ -7,6 +7,7 @@ import SearchBar from "./modules/SearchBar";
 import SpotlightContext from "./modules/SpotlightContext";
 const ipcRenderer = window.electron.ipcRenderer;
 
+
 const DEFAULT_STATE = {
   hits: {},
   flatHits: [],
@@ -15,6 +16,12 @@ const DEFAULT_STATE = {
 };
 
 class Spotlight extends Component {
+  constructor(props){
+    super(props);
+    ipcRenderer.on('open-search', () => {
+      this.state.toggle();
+    })
+  }
   state = {
     ...DEFAULT_STATE,
     toggle: () => {
@@ -24,11 +31,9 @@ class Spotlight extends Component {
       this.setState({ ...DEFAULT_STATE, isOpen: !close });
     },
     selectHit: selectedResultIndex => {
-      if (selectedResultIndex === this.state.selectedResultIndex) {
-        return;
-      }
+      
 
-      this.setState({ selectedResultIndex });
+      this.setState({ selectedResultIndex }, () => {this.props.searchHit(this.state.flatHits[selectedResultIndex]); this.state.toggle();});
     },
     selectUp: () => {
       const { flatHits, selectedResultIndex } = this.state;
@@ -104,7 +109,6 @@ class Spotlight extends Component {
     },
     performSearch: async term => {
       ipcRenderer.invoke('getSearchResult', term).then((result) => {
-        console.log(result)
         const flatHits = result.map((card, index) => {
           return {
             ...card,
@@ -137,7 +141,6 @@ class Spotlight extends Component {
   componentDidMount() {
     document.body.addEventListener("keydown", this._listenKey);
   }
-
   render() {
     if (!this.state.isOpen) {
       return null;
