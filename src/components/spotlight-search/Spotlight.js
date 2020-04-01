@@ -25,14 +25,12 @@ class Spotlight extends Component {
   state = {
     ...DEFAULT_STATE,
     toggle: () => {
-      this.setState({ isOpen: !this.state.isOpen });
+      this.setState({ ...DEFAULT_STATE, isOpen: !this.state.isOpen });
     },
     clearSearch: (close = false) => {
       this.setState({ ...DEFAULT_STATE, isOpen: !close });
     },
     selectHit: selectedResultIndex => {
-      
-
       this.setState({ selectedResultIndex }, () => {this.props.searchHit(this.state.flatHits[selectedResultIndex]); this.state.toggle();});
     },
     selectUp: () => {

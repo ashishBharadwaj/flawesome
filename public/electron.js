@@ -1,6 +1,6 @@
 const openAboutWindow = require('about-window').default;
-const {app, BrowserWindow, Menu,shell} = require('electron');
-const { ipcMain } = require('electron')
+const {app, BrowserWindow, Menu,shell, ipcMain, screen } = require('electron');
+
 const Store = require('./store');
 const join = require('path').join;
 const d = new Date();
@@ -15,7 +15,7 @@ let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
         tasks:[]                    
     }}) + '}');
 let store = new Store({
-        name: 'donnaDb',
+        name: process.env.IS_DEV ? 'donnaDbDev' : 'donnaDb',
         defaults: defaultAppState
     });
 //  console.log("Logging default state : ");
@@ -28,11 +28,8 @@ app.on('window-all-closed', () => {
     }
 })
 function createWindow () {   
-    // Create the browser window.     
-    let {width, height} = require('electron').screen.getPrimaryDisplay().size;
-    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: {
-        nodeIntegration: true
-    }});
+    const {width, height} = screen.getPrimaryDisplay().size;
+    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: { nodeIntegration: true}/*, frame: false,titleBarStyle: 'hidden'*/ });
     const startUrl = process.env.ELECTRON_START_URL || join(__dirname, './index.html')
     win.loadURL(startUrl);
     win.once('ready-to-show', () => {
