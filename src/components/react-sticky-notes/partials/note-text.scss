@@ -1,11 +1,12 @@
 @mixin noteText() {
     &--text{
         padding: 10px;
-        font-size: 12px;
+        font-size: 14px;
         width: 100%;
+        outline: none!important;
         &:empty{
             &::before{
-                color: rgba(255,255,255,.75);
+                color: 	#192227;
                 content: 'Add your notes...';
             }
         }

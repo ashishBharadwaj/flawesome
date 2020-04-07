@@ -16,7 +16,7 @@
             left: 0;
             top: 0;
             pointer-events: none;
-            background-color: rgba(0,0,0,.15);
+            background-color: rgba(0,0,0,.1);
         }
         &--button{
             cursor:pointer;
@@ -25,7 +25,7 @@
             border:none;
             transition: all .2s linear;
             padding: 5px;
-            color: rgba(255,255,255,.75);
+            color: #192227;
             width: 32px;
             &__title{
                 flex-grow: 1;
