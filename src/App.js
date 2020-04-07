@@ -14,6 +14,7 @@ import ReactStickyNotes from './components/react-sticky-notes';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Spotlight from "./components/spotlight-search/Spotlight";
+import TitleBar from './components/title-bar';
 
 library.add(faSearch);
 const ipcRenderer = window.electron.ipcRenderer;
@@ -87,7 +88,9 @@ searchHit(searchItem){
 }
   render(){
     return(
-        [<ReflexContainer orientation="vertical" className="appContainer">
+        [ <TitleBar/>,
+        
+        <ReflexContainer orientation="vertical" className="appContainer">
 
           <ReflexElement maxSize={400}>
             <ReflexContainer orientation="horizontal">

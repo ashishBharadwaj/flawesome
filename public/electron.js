@@ -17,10 +17,7 @@ let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
 let store = new Store({
         name: process.env.IS_DEV ? 'donnaDbDev' : 'donnaDb',
         defaults: defaultAppState
-    });
-//  console.log("Logging default state : ");
-//  console.log(defaultAppState);
-//  console.log(store);
+});
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -29,7 +26,7 @@ app.on('window-all-closed', () => {
 })
 function createWindow () {   
     const {width, height} = screen.getPrimaryDisplay().size;
-    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: { nodeIntegration: true}/*, frame: false,titleBarStyle: 'hidden'*/ });
+    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: { nodeIntegration: true}, frame: false, titleBarStyle: 'hidden' });
     const startUrl = process.env.ELECTRON_START_URL || join(__dirname, './index.html')
     win.loadURL(startUrl);
     win.once('ready-to-show', () => {
@@ -127,7 +124,7 @@ function createWindow () {
         }
     ]);
     Menu.setApplicationMenu(mainMenu);
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools();
     // and load the index.html of the app.     win.loadFile('index.html')   
 } 
 async function filterSearchTerm(searchTerm){
@@ -198,8 +195,4 @@ function getArrangedData(data){
     }
 
     return newData;
-}
-function closeApp()
-{
-    app.quit();
 }

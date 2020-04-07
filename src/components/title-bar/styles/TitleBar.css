@@ -1,0 +1,6 @@
+.ab_TitleBar{
+    display: grid;
+    height: 35px;
+    width: 100%;
+    background-color: #001f2f;
+}
