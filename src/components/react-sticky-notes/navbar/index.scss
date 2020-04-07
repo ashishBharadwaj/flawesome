@@ -28,14 +28,13 @@
                 left: 0;
                 top: 0;
                 pointer-events: none;
-                background-color: rgba(0,0,0,.15);
             }
             &--button{
                 cursor: pointer;
                 opacity: .8;
                 background: none;
                 border: none;
-                color:#fff;
+                color:#192227;
                 padding: 3px 5px;
                 &__title{
                     text-align: left;
