@@ -1,6 +1,108 @@
 .ab_TitleBar{
+    background-color: #001F2F;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     display: grid;
-    height: 35px;
-    width: 100%;
-    background-color: #001f2f;
+    grid-template-columns: 50px auto 138px;
+    box-sizing: border-box;
+    -webkit-app-region: drag;
+}
+
+/*  Window control Styles  */
+.ab_TB_WinControls
+{
+    -webkit-app-region: no-drag;
+    display: flex;
+    flex-direction: row;
+}
+.ab_icons
+{
+    justify-content: center;
+    align-items: center;
+    width: 46px;
+}
+.ab_minimizeIcon
+{
+    background: url('../media/minimize.svg');
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_minimizeIcon:hover{
+    background: url('../media/minimizeLight.svg');    
+    background-color: rgba(255, 255, 255, 0.1);
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_maximizeIcon
+{
+    background: url('../media/maximize.svg');
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_maximizeIcon:hover{
+    background: url('../media/maximizeLight.svg');    
+    background-color: rgba(255, 255, 255, 0.1);
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_restoreIcon
+{
+    background: url('../media/restore.svg');
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_restoreIcon:hover{
+    background: url('../media/restoreLight.svg');
+    background-color: rgba(255, 255, 255, 0.1);
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_closeIcon
+{
+    background: url('../media/close.svg');
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+.ab_closeIcon:hover{
+    background: url('../media/closeLight.svg');
+    background-color: rgba(232, 17, 35, 0.9);
+    background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/*  Hamburger Options Styles  */
+
+.ab_TB_Options{
+    -webkit-app-region: no-drag;
+    background: url('../media/hamburger.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+}
+
+.ab_TB_Options:hover{
+    background: url('../media/hamburgerLight.svg');     
+    background-color: rgba(255, 255, 255, 0.1);
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+/*  Date Picker Styles  */
+.ab_TB_DatePicker
+{
+    box-sizing: border-box;
+    text-align: center;
+    justify-items: center;
+}
+.ab_TB_DatePicker input{
+    -webkit-app-region: no-drag;
+    margin-top: 8px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    height: 20px;
+    background-color: #455c67;
+    color: #d4d2d2 ;
+}
+.ab_TB_DatePicker input:hover{
+    color: #ffff 
 }
