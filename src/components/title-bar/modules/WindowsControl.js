@@ -15,7 +15,6 @@ export default class WindowsControl extends React.Component{
     getCurrentWindow() {
         return remote.getCurrentWindow();
     }
-
     minimizeWindow(browserWindow = this.getCurrentWindow()) {
         if (browserWindow.minimizable) {
           browserWindow.minimize();
@@ -28,12 +27,10 @@ export default class WindowsControl extends React.Component{
           browserWindow.maximize();
         }
         this.setState({isMaximized: this.isWindowMaximized()})
-    }
-    
+    }    
     closeWindow(browserWindow = this.getCurrentWindow()) {
         browserWindow.close();
-    }
-      
+    }      
     isWindowMaximized(browserWindow = this.getCurrentWindow()) {
         return browserWindow.isMaximized();
     }
