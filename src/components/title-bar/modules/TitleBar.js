@@ -6,11 +6,10 @@ class TitleBar extends React.Component{
     constructor(props){
         super(props);
     }
-    componentDidMount(){
-
-    }
     componentWillReceiveProps(nextProps){
-
+        if(nextProps !== this.props){
+            this.props = nextProps;
+        }
     }
     render(){
         return(
@@ -18,7 +17,7 @@ class TitleBar extends React.Component{
                 <div className = "ab_TB_Options"> 
                 </div>
                 <div className = "ab_TB_DatePicker">
-                    <Flatpickr date = {this.props.date}/>
+                    <Flatpickr date = {this.props.date} dateChangeCallBack = {this.props.dateChangeCallBack}/>
                 </div>    
                 <WindowsControl/>            
             </div>

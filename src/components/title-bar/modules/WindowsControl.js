@@ -5,8 +5,6 @@ export default class WindowsControl extends React.Component{
         super(props)
         this.getCurrentWindow = this.getCurrentWindow.bind(this);
         this.minimizeWindow = this.minimizeWindow.bind(this);
-        this.maximizeWindow = this.maximizeWindow.bind(this);
-        this.unmaximizeWindow = this.unmaximizeWindow.bind(this);
         this.maxUnmaxWindow = this.maxUnmaxWindow.bind(this);
         this.closeWindow = this.closeWindow.bind(this);
         this.isWindowMaximized = this.isWindowMaximized.bind(this);    
@@ -23,17 +21,6 @@ export default class WindowsControl extends React.Component{
           browserWindow.minimize();
         }
     }
-      
-    maximizeWindow(browserWindow = this.getCurrentWindow()) {
-        if (browserWindow.maximizable) {
-          browserWindow.maximize();
-        }
-    }
-      
-    unmaximizeWindow(browserWindow = this.getCurrentWindow()) {
-        browserWindow.unmaximize();
-    }
-      
     maxUnmaxWindow(browserWindow = this.getCurrentWindow()) {
         if (browserWindow.isMaximized()) {
           browserWindow.unmaximize();
@@ -51,14 +38,11 @@ export default class WindowsControl extends React.Component{
         return browserWindow.isMaximized();
     }
     render(){
-        return(            
+        return(
             <div className = "ab_TB_WinControls">
-                <div className="ab_icons ab_minimizeIcon" onClick={ () => { this.minimizeWindow() }}>
-                </div>
-                <div className={"ab_icons " + (this.state.isMaximized ? "ab_restoreIcon" : "ab_maximizeIcon")} onClick={ () => { this.maxUnmaxWindow() }}>
-                </div>
-                <div className="ab_icons ab_closeIcon" onClick={ () => {this.closeWindow()}}>                    
-                </div>
+                <div className="ab_icons ab_minimizeIcon" onClick={ () => { this.minimizeWindow() }}></div>
+                <div className={"ab_icons " + (this.state.isMaximized ? "ab_restoreIcon" : "ab_maximizeIcon")} onClick={ () => { this.maxUnmaxWindow() }}></div>
+                <div className="ab_icons ab_closeIcon" onClick={ () => {this.closeWindow()}}></div>
             </div>
         );
     }

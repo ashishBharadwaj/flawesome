@@ -5,20 +5,20 @@ export default class Flatpickr extends React.Component {
     constructor(props) {
       super(props);
       this.datePicker = React.createRef();
-      this.state = { date: this.props.date}
+      this.onChange = this.onChange.bind(this);
     }
     onChange(selectedDates, dateStr, instance) {
-      console.log(selectedDates);
+      this.props.dateChangeCallBack(new Date(selectedDates));
     }
     componentDidMount() {
       flatpickr(this.datePicker.current, {
-        defaultDate: this.state.date,
+        defaultDate: this.props.date,
         onChange: this.onChange
       });
     }
     componentWillReceiveProps(nextProps){
       if(nextProps !== this.props){
-        this.setState({date: nextProps.date})
+        this.props = nextProps;
       }
     }
     render() {
