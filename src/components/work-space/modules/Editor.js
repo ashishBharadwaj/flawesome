@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactQuill, {Quill} from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import './Editor.css'
-import  ImageResize  from './components/imge-resize/ImageResize'
+import '../styles/Editor.css'
+import  ImageResize  from '../../imge-resize/ImageResize'
 import {ImageDrop}  from 'quill-image-drop-module'
 // import QuillBetterTable from 'quill-better-table'
 
@@ -15,25 +15,29 @@ Quill.register('modules/imageDrop', ImageDrop)
 class Editor extends React.Component{
     constructor(props){
         super(props)
-        this.handleChange = this.handleChange.bind(this) 
+        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            editorContent: props.editorContent
+        }
     }
-    handleChange (html)
-    { 
-        this.props.editorChange(html) 
+    handleChange(html){
+        this.setState({editorContent: html}, ()=>{ this.props.onChangeCallback(html)});
+    }
+    componentWillReceiveProps(nextProps){
+        if (nextProps !== this.props){
+            this.props = nextProps;
+            this.setState({editorContent: nextProps.editorContent})
+        }
     }
     render(){
         return(
-            <div className="app">
                 <ReactQuill 
                     theme={Editor.theme}
                     onChange={this.handleChange}
-                    value={this.props.editorContent}
+                    value={this.state.editorContent}
                     modules={Editor.modules}
                     formats={Editor.formats}
-                    bounds={'.app'}
                     />
-            </div>
-            
         )
     }
     

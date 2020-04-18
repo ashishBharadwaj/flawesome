@@ -1,0 +1,15 @@
+.quill{
+    height: 100%;
+    display: grid;
+    grid-template-rows: 40px auto;
+    background-color: #fff;
+}
+.ql-editor{
+    background-color: #fff;
+}
+.ql-toolbar{
+    background-color: #f4efef;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}

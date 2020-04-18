@@ -14,7 +14,7 @@ class ReactStickyNotes extends Component {
 		noteWidth: 220,
 		noteHeight: 220,
 		containerWidth: '100%',
-		containerHeight: '100%',
+		containerHeight: '94%',
 		icons,
 		useMaterialIcons: true
 	}
