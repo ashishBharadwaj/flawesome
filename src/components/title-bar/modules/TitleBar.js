@@ -22,6 +22,7 @@ class TitleBar extends React.Component{
                 </div>
                 <div className = "ab_TB_DatePicker">
                     <Flatpickr date = {this.state.date} dateChangeCallBack = {this.props.dateChangeCallBack}/>
+                    
                 </div>    
                 <WindowsControl/>            
             </div>

@@ -31,9 +31,22 @@ export default class Flatpickr extends React.Component {
         });
       }
     }
+    yesterday (date){
+      let dt = new Date(date);
+      return new Date((dt.setDate(dt.getDate()-1)));
+    }
+    tomorrow (date){
+      let dt = new Date(date);
+      return new Date((dt.setDate(dt.getDate()+1)));
+    }
     render() {
       return(
-        <input key ={this.state.date.toString()} type="date" ref={this.datePicker} />
+        <div className="ab_TB_flatpickr">      
+            <div className="ab_TB_PreviousDate" onClick={ ()=>{ this.props.dateChangeCallBack(this.yesterday(this.state.date)) }}></div>
+            <input key ={this.state.date.toString()} type="date" ref={this.datePicker} />
+            <div className="ab_TB_NextDate" onClick={ ()=>{ this.props.dateChangeCallBack(this.tomorrow(this.state.date)) }}></div>
+            <div className="ab_TB_resetDate" onClick={ ()=>{ this.props.dateChangeCallBack(new Date()) }}></div>
+        </div>
       );
     }
 }

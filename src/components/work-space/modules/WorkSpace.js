@@ -6,7 +6,7 @@ import '../styles/WorkSpace.css';
 export default class WorkSpace extends React.Component {
     constructor(props){
         super(props);
-        this.state = {
+        let defaultState = {
             selectedClass: "ab_SB_IconSelected",
             icons:[
                 {
@@ -38,17 +38,35 @@ export default class WorkSpace extends React.Component {
             editorContent: props.appData.editorContent,
             toDoItems: props.appData.todoState
         };
+        if(props.appData.defaultTab){
+            defaultState.icons = defaultState.icons.map( (i) => { 
+                return (i.name === props.appData.defaultTab ? {...i , isSelected: true} : {...i , isSelected: false})
+            })
+            defaultState.icons.forEach(a => defaultState[a.name] = {isSelected: a.isSelected});
+        }
+        this.state  = defaultState;
         this.iconClicked = this.iconClicked.bind(this);
     }
     componentWillReceiveProps(nextProps){
         if(nextProps !== this.props){
             this.props = nextProps;
-            this.setState({notes: nextProps.appData.notes, editorContent: nextProps.appData.editorContent, toDoItems: nextProps.appData.todoState });
+            this.setState({
+                notes: nextProps.appData.notes, 
+                editorContent: nextProps.appData.editorContent, 
+                toDoItems: nextProps.appData.todoState 
+            }, () => {
+                this.setState({
+                    icons: this.state.icons.map(a => a.name === nextProps.appData.defaultTab ? {...a, isSelected: true } : {...a, isSelected: false } )
+                }, () => {
+                    this.state.icons.forEach(a => { this.setState( { [a.name]: {isSelected: a.isSelected} } ) })
+                })
+            });
         }
     }
     iconClicked(e, icon){
         this.setState({icons: this.state.icons.map(a => a.name === icon.name ? {...a, isSelected: true } : {...a, isSelected: false } )}, () =>{
             this.state.icons.forEach(a => { this.setState( { [a.name]: {isSelected: a.isSelected} } ) })
+            this.props.callBacks.updateDefaultTabCallback(icon.name);
         })
     }
     render(){
@@ -62,12 +80,8 @@ export default class WorkSpace extends React.Component {
                             })
                         }
                     </div>
-                    <div className="">
-                        
-                    </div>
-                    <div className="ab_SB_SearchIconContainer" onClick = { this.props.callBacks.openSearchCallback }>
-                        
-                    </div>
+                    <div></div>
+                    <div className="ab_SB_SearchIconContainer" onClick = { this.props.callBacks.openSearchCallback }></div>
                 </div>
                 <div className="ab_appContainer">
                     {this.state.noteBook.isSelected ? <Editor editorContent={this.state.editorContent} onChangeCallback = {this.props.callBacks.editorChangeCallback}/> : null}

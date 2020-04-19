@@ -152,7 +152,7 @@ class Spotlight extends Component {
 
     return (
       <SpotlightContext.Provider value={this.state}>
-        <Overlay>
+        <Overlay className="ab_SP_Search">
           <SearchBar />
           <Hits />
         </Overlay>

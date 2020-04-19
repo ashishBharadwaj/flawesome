@@ -13,7 +13,7 @@ export default class App extends React.Component
     {
         super(props)
         this.state = ipcRenderer.sendSync('getAppState', this.getDateKeyString(new Date()));
-        this.state = {...this.state, doOpen: false}
+        this.state = {...this.state, doOpen: false, defaultTab: "noteBook"}
         this.onDateChange = this.onDateChange.bind(this);
         this.onNoteChange = this.onNoteChange.bind(this);
         this.onEditorChange = this.onEditorChange.bind(this);
@@ -21,51 +21,55 @@ export default class App extends React.Component
         this.searchHit = this.searchHit.bind(this);
         this.onDoOpenSearch = this.onDoOpenSearch.bind(this);
         this.toggleDoOpen = this.toggleDoOpen.bind(this);
+        this.serilizeAndStoreState = this.serilizeAndStoreState.bind(this);
+        this.onUpdateDefaultTab = this.onUpdateDefaultTab.bind(this);
     }
-    onDateChange (newDate)  {
-        let val = Object.assign({},this.state);
-        delete val.doOpen;
-        ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
+    onDateChange (newDate, tabToOpen)  {
+        this.serilizeAndStoreState()
         let nextstate = ipcRenderer.sendSync('getAppState',this.getDateKeyString(newDate));  
-        this.setState({...nextstate, doOpen:false});
+        if(tabToOpen){
+            this.setState({...nextstate, defaultTab: tabToOpen});
+        }else{
+            this.setState(nextstate);
+        }
+        
     }
     onEditorChange(newContent, delta, source, editor)
     {
-        
-        this.setState({ editorState: newContent}, 
-            ()=> { 
-                let val = Object.assign({},this.state);
-                delete val.doOpen;
-                ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val)) 
-            });
+        this.setState({ editorState: newContent}, () => { this.serilizeAndStoreState() });
     }
     onNoteChange (type, payload, newNotes) {
-        this.setState({ notes: newNotes}, 
-            ()=> { 
-                let val = Object.assign({},this.state);
-                delete val.doOpen;
-                ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val)) 
-            });
+        this.setState({ notes: newNotes}, () => { this.serilizeAndStoreState() });
     }  
     onTodoChange(newTodoState)
     {
-        this.setState({todoState: newTodoState}, 
-            ()=> { 
-                let val = Object.assign({},this.state);
-                delete val.doOpen;
-                ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val)) 
-            });
+        this.setState({todoState: newTodoState}, () => { this.serilizeAndStoreState() });
     }
-    searchHit(searchItem){
-        this.onDateChange(new Date(searchItem.dateKey));
+    onUpdateDefaultTab(newDefaultTab){
+        this.setState({defaultTab: newDefaultTab});
+    }
+    //persits the app State
+    serilizeAndStoreState(){
+        let val = Object.assign({},this.state);
+        delete val.doOpen;
+        delete val.defaultTab;
+        ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
+        return val;
     }
     getDateKeyString(date)
     {
         return (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  date.getDate())
     }
+    
+    // callback func when search itrem is clicked 
+    searchHit(searchItem){
+        this.onDateChange(new Date(searchItem.dateKey), searchItem.elementType);
+    }
+    //callback func to open Spotlight Search when search icon is clicked in sidebar
     onDoOpenSearch(){
         this.setState({doOpen: !this.state.doOpen});
     }
+    //callback func to toggle search open state when it is changed in Spotlight component
     toggleDoOpen(newDoOpen){
         this.setState({doOpen: newDoOpen});
     }
@@ -77,13 +81,15 @@ export default class App extends React.Component
                         date: this.state.date,
                         notes: this.state.notes, 
                         editorContent: this.state.editorState, 
-                        todoState: this.state.todoState
+                        todoState: this.state.todoState,
+                        defaultTab: this.state.defaultTab
                     }} 
                     callBacks = {{
                         noteChangeCallback: this.onNoteChange,
                         editorChangeCallback: this.onEditorChange,
                         todoChangeCallback: this.onTodoChange,
-                        openSearchCallback: this.onDoOpenSearch
+                        openSearchCallback: this.onDoOpenSearch,
+                        updateDefaultTabCallback: this.onUpdateDefaultTab
                     }} />,
                 <div className="footer"></div>,
                 <Spotlight searchHit={this.searchHit} doOpen = {this.state.doOpen} toggleDoOpen = {this.toggleDoOpen}/>        

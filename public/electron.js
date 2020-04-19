@@ -1,5 +1,4 @@
-const openAboutWindow = require('about-window').default;
-const {app, BrowserWindow, Menu,shell, ipcMain, screen } = require('electron');
+const {app, BrowserWindow, Menu, ipcMain, screen } = require('electron');
 
 const Store = require('./store');
 const join = require('path').join;
@@ -71,56 +70,6 @@ function createWindow () {
         selectionMenu.popup(win);
     }
     })
-    
-
-    const mainMenu = Menu.buildFromTemplate([
-        {
-            label:"Tools",
-            submenu:[
-                {
-                    label: "Search (ctrl+space)",
-                    click:()=>{
-                        win.webContents.send("open-search")
-                    }
-                }
-            ]
-        },
-        {
-            label: "About",
-            submenu:[
-                {
-                    label: "About donna.ai",
-                    click:()=>{
-                        openAboutWindow(
-                            {
-                                icon_path:join(__dirname, './icon.png'),
-                                product_name: 'donna.ai',
-                                copyright:'Copyright (c) 2020 Ashish Bharadwaj J',
-                                package_json_dir: join(__dirname, '../'),
-                                adjust_window_size: true,
-                                win_options: {
-                                    parent: win,
-                                    modal: true,
-                                    show: false
-                                },
-                                show_close_button: 'Close',
-                            }
-                        );
-
-                    }
-                                     
-                },
-                {type:'separator'}, 
-                {
-                    label: "Report A Bug ?",
-                    click:()=> { 
-                        shell.openExternal('https://docs.google.com/forms/d/e/1FAIpQLSeUpOj6hMS8H8sfiju7OzADnb8Q7Frw5Bw55tmYMSIuA4NJpQ/viewform?usp=sf_link')
-                    } 
-                }
-            ]
-        }
-    ]);
-    Menu.setApplicationMenu(mainMenu);
     if(process.env.IS_DEV){
         win.webContents.openDevTools();
     }
@@ -148,7 +97,7 @@ function getArrangedData(data){
                         {
                             dateKey: key, 
                             searchContent: cleanState, 
-                            elementType: 'Editor', 
+                            elementType: 'noteBook', 
                             elementProps:{}
                         }
                     );
@@ -161,7 +110,7 @@ function getArrangedData(data){
                             {
                                 dateKey: key, 
                                 searchContent: dat.todoState[todoKey].text, 
-                                elementType: 'TodoList', 
+                                elementType: 'toDo', 
                                 elementProps: {
                                     index: todoKey, 
                                     status: dat.todoState[todoKey].status
@@ -179,7 +128,7 @@ function getArrangedData(data){
                             {
                                 dateKey: key, 
                                 searchContent: note.text,
-                                elementType: 'Notes', 
+                                elementType: 'stickyNotes', 
                                 elementProps: {
                                     id: note.id,
                                     index: noteKey
