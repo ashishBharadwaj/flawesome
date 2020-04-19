@@ -49,6 +49,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.9",
+    "@reach/accordion": "^0.10.0",
     "draft-js": "^0.11.4",
     "electron": "^8.0.2",
     "electron-builder": "^22.4.0",

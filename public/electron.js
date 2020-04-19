@@ -10,10 +10,7 @@ let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
     date: d,
     editorState: "",
     notes: [],
-    todoState:{
-        tasksRemaining: 0,
-        tasks:[]                    
-    }}) + '}');
+    todoState:[]}) + '}');
 let store = new Store({
         name: process.env.IS_DEV ? 'donnaDbDev' : 'donnaDb',
         defaults: defaultAppState
@@ -124,7 +121,9 @@ function createWindow () {
         }
     ]);
     Menu.setApplicationMenu(mainMenu);
-    win.webContents.openDevTools();
+    if(process.env.IS_DEV){
+        win.webContents.openDevTools();
+    }
     // and load the index.html of the app.     win.loadFile('index.html')   
 } 
 async function filterSearchTerm(searchTerm){
@@ -155,16 +154,16 @@ function getArrangedData(data){
                     );
                 }
                 for(let todoKey in dat.todoState.tasks){
-                    if(dat.todoState.tasks.hasOwnProperty(todoKey)){
-                        if(dat.todoState.tasks[todoKey].title){
+                    if(dat.todoState.hasOwnProperty(todoKey)){
+                        if(dat.todoState[todoKey].text){
                             newData.push(
                                 {
                                     dateKey: key, 
-                                    searchContent: dat.todoState.tasks[todoKey].title, 
+                                    searchContent: dat.todoState[todoKey].text, 
                                     elementType: 'TodoList', 
                                     elementProps: {
                                         index: todoKey, 
-                                        isComplete: dat.todoState.tasks[todoKey].complete
+                                        status: dat.todoState[todoKey].status
                                     }
                                 }
                             );

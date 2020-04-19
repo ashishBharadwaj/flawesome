@@ -12,6 +12,7 @@ export default class App extends React.Component
         this.onDateChange = this.onDateChange.bind(this);
         this.onNoteChange = this.onNoteChange.bind(this);
         this.onEditorChange = this.onEditorChange.bind(this);
+        this.onTodoChange = this.onTodoChange.bind(this);
     }
     onDateChange (newDate)  {
         let val = Object.assign({},this.state);
@@ -26,6 +27,10 @@ export default class App extends React.Component
     onNoteChange (type, payload, newNotes) {
         this.setState({ notes: newNotes}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state))});
     }  
+    onTodoChange(newTodoState)
+    {
+        this.setState({todoState: newTodoState}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) })
+    }
     getDateKeyString(date)
     {
         return (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  date.getDate())
@@ -34,7 +39,17 @@ export default class App extends React.Component
         return(
             [
                 <TitleBar date = {this.state.date} dateChangeCallBack = {this.onDateChange}/>,
-                <WorkSpace appData = {{notes: this.state.notes, editorContent: this.state.editorState}} callBacks = { {noteChangeCallback: this.onNoteChange, editorChangeCallback: this.onEditorChange} } />,
+                <WorkSpace appData = {{
+                        date: this.state.date,
+                        notes: this.state.notes, 
+                        editorContent: this.state.editorState, 
+                        todoState: this.state.todoState
+                    }} 
+                    callBacks = {{
+                        noteChangeCallback: this.onNoteChange,
+                        editorChangeCallback: this.onEditorChange,
+                        todoChangeCallback: this.onTodoChange
+                    }} />,
                 <div className="footer"></div>
             ]
         );

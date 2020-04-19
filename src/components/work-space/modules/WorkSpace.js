@@ -1,6 +1,7 @@
 import React from 'react';
 import Editor from './Editor';
 import ReactStickyNotes from '../../react-sticky-notes';
+import TodoMeter from '../../todo-meter';
 import '../styles/WorkSpace.css';
 export default class WorkSpace extends React.Component {
     constructor(props){
@@ -33,15 +34,16 @@ export default class WorkSpace extends React.Component {
             toDo:{
                 isSelected: false
             },
-            notes: this.props.appData.notes,
-            editorContent: this.props.appData.editorContent
+            notes: props.appData.notes,
+            editorContent: props.appData.editorContent,
+            toDoItems: props.appData.todoState
         };
         this.iconClicked = this.iconClicked.bind(this);
     }
     componentWillReceiveProps(nextProps){
         if(nextProps !== this.props){
             this.props = nextProps;
-            this.setState({notes: nextProps.appData.notes, editorContent: nextProps.appData.editorContent });
+            this.setState({notes: nextProps.appData.notes, editorContent: nextProps.appData.editorContent, toDoItems: nextProps.appData.todoState });
         }
     }
     iconClicked(e, icon){
@@ -64,6 +66,7 @@ export default class WorkSpace extends React.Component {
                 <div className="ab_appContainer">
                     {this.state.noteBook.isSelected ? <Editor editorContent={this.state.editorContent} onChangeCallback = {this.props.callBacks.editorChangeCallback}/> : null}
                     {this.state.stickyNotes.isSelected ? <ReactStickyNotes notes={this.state.notes} onChange= { (type, payload, newNotes) => { this.setState({notes: newNotes}, ()=>{this.props.callBacks.noteChangeCallback(type, payload, newNotes) }) } } /> : null}
+                    {this.state.toDo.isSelected ? <TodoMeter toDoItems= {this.state.toDoItems} itemChangeCallback = {this.props.callBacks.todoChangeCallback} /> : null }
                 </div>
             </div>
         );
