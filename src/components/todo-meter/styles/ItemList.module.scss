@@ -30,10 +30,9 @@
     box-sizing: border-box;
     transition: transform 0.2s;
   }
-  &[data-state="open"] img {
+  &[aria-expanded="true"] img {
     padding: 5px 0 0 0;
     transform: rotate(90deg);
-    transform-origin: 0% 0%;
   }
   &:focus {
     outline: 2px solid $bg;
