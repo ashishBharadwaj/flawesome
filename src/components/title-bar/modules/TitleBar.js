@@ -5,10 +5,14 @@ import '../styles/TitleBar.css'
 class TitleBar extends React.Component{
     constructor(props){
         super(props);
+        this.state = {
+            date: props.date
+        }
     }
     componentWillReceiveProps(nextProps){
         if(nextProps !== this.props){
             this.props = nextProps;
+            this.setState({date: nextProps.date});
         }
     }
     render(){
@@ -17,7 +21,7 @@ class TitleBar extends React.Component{
                 <div className = "ab_TB_Options"> 
                 </div>
                 <div className = "ab_TB_DatePicker">
-                    <Flatpickr date = {this.props.date} dateChangeCallBack = {this.props.dateChangeCallBack}/>
+                    <Flatpickr date = {this.state.date} dateChangeCallBack = {this.props.dateChangeCallBack}/>
                 </div>    
                 <WindowsControl/>            
             </div>

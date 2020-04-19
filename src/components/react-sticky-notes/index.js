@@ -30,15 +30,6 @@ class ReactStickyNotes extends Component {
 		if(this.props.useCSS){
 			require('./index.scss');
 		}
-		if(this.props.useMaterialIcons){
-			const stylesheet = document.createElement('link');
-			stylesheet.href = "https://fonts.googleapis.com/icon?family=Material+Icons";
-			stylesheet.rel="stylesheet";
-			stylesheet.id="material-icons-css";
-			if(!document.getElementById('material-icons-css')){
-				document.head.appendChild(stylesheet);
-			}
-		}
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.notes && nextProps.notes.length == 0)

@@ -62,6 +62,12 @@ export default class WorkSpace extends React.Component {
                             })
                         }
                     </div>
+                    <div className="">
+                        
+                    </div>
+                    <div className="ab_SB_SearchIconContainer" onClick = { this.props.callBacks.openSearchCallback }>
+                        
+                    </div>
                 </div>
                 <div className="ab_appContainer">
                     {this.state.noteBook.isSelected ? <Editor editorContent={this.state.editorContent} onChangeCallback = {this.props.callBacks.editorChangeCallback}/> : null}

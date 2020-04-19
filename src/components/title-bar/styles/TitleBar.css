@@ -27,10 +27,8 @@
 	background-position: center center;
 }
 .ab_minimizeIcon:hover{
-    background: url('../media/minimizeLight.svg');    
+    filter: brightness(3.5); 
     background-color: rgba(255, 255, 255, 0.1);
-    background-repeat: no-repeat;
-	background-position: center center;
 }
 .ab_maximizeIcon
 {
@@ -39,10 +37,8 @@
 	background-position: center center;
 }
 .ab_maximizeIcon:hover{
-    background: url('../media/maximizeLight.svg');    
+    filter: brightness(3.5);
     background-color: rgba(255, 255, 255, 0.1);
-    background-repeat: no-repeat;
-	background-position: center center;
 }
 .ab_restoreIcon
 {
@@ -51,10 +47,8 @@
 	background-position: center center;
 }
 .ab_restoreIcon:hover{
-    background: url('../media/restoreLight.svg');
+    filter: brightness(3.5);
     background-color: rgba(255, 255, 255, 0.1);
-    background-repeat: no-repeat;
-	background-position: center center;
 }
 .ab_closeIcon
 {
@@ -80,10 +74,7 @@
 }
 
 .ab_TB_Options:hover{
-    background: url('../media/hamburgerLight.svg');     
-    background-color: rgba(255, 255, 255, 0.1);
-    background-repeat: no-repeat;
-    background-position: center center;
+    filter: brightness(3.5);
 }
 
 /*  Date Picker Styles  */

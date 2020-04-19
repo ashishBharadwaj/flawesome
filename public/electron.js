@@ -152,40 +152,40 @@ function getArrangedData(data){
                             elementProps:{}
                         }
                     );
-                }
-                for(let todoKey in dat.todoState.tasks){
-                    if(dat.todoState.hasOwnProperty(todoKey)){
-                        if(dat.todoState[todoKey].text){
-                            newData.push(
-                                {
-                                    dateKey: key, 
-                                    searchContent: dat.todoState[todoKey].text, 
-                                    elementType: 'TodoList', 
-                                    elementProps: {
-                                        index: todoKey, 
-                                        status: dat.todoState[todoKey].status
-                                    }
+                }                
+            }
+            for(let todoKey in dat.todoState){
+                if(dat.todoState.hasOwnProperty(todoKey)){
+                    if(dat.todoState[todoKey].text){
+                        newData.push(
+                            {
+                                dateKey: key, 
+                                searchContent: dat.todoState[todoKey].text, 
+                                elementType: 'TodoList', 
+                                elementProps: {
+                                    index: todoKey, 
+                                    status: dat.todoState[todoKey].status
                                 }
-                            );
-                        }
-                    }                        
-                }
-                for(let noteKey in dat.notes){
-                    if(dat.notes.hasOwnProperty(noteKey)){
-                        let note = dat.notes[noteKey];
-                        if(note.text){
-                            newData.push(
-                                {
-                                    dateKey: key, 
-                                    searchContent: note.text,
-                                    elementType: 'Notes', 
-                                    elementProps: {
-                                        id: note.id,
-                                        index: noteKey
-                                    }
+                            }
+                        );
+                    }
+                }                        
+            }
+            for(let noteKey in dat.notes){
+                if(dat.notes.hasOwnProperty(noteKey)){
+                    let note = dat.notes[noteKey];
+                    if(note.text){
+                        newData.push(
+                            {
+                                dateKey: key, 
+                                searchContent: note.text,
+                                elementType: 'Notes', 
+                                elementProps: {
+                                    id: note.id,
+                                    index: noteKey
                                 }
-                            );
-                        }
+                            }
+                        );
                     }
                 }
             }
