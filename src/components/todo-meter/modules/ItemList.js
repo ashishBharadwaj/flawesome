@@ -13,6 +13,7 @@ import Item from "./Item";
 import styles from "../styles/ItemList.module.scss";
 import arrow from "../media/arrow.svg";
 import alldone from "../media/alldone.svg";
+import {Classes} from "@blueprintjs/core";
 
 
 export default class ItemList extends React.Component {
@@ -51,7 +52,7 @@ export default class ItemList extends React.Component {
           </>
         ) : (
           <div className={styles.alldone}>
-            <img src={alldone} alt="Nothing to do!" />
+            <img className={Classes.ELEVATION_4} src={alldone} alt="Nothing to do!" />
           </div>
         )}
         <Accordion collapsible multiple>
@@ -86,7 +87,7 @@ export default class ItemList extends React.Component {
   
         {(this.state.completed.length > 0 || this.state.paused.length > 0) && (
           <div className={styles.reset}>
-            <button
+            <button className = {Classes.ELEVATION_4}
               onClick={() => {
                 this.props.callBacks.resetItemsCallback();
               }}

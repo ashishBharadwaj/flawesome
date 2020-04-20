@@ -2,6 +2,7 @@ import React from 'react';
 import Editor from './Editor';
 import ReactStickyNotes from '../../react-sticky-notes';
 import TodoMeter from '../../todo-meter';
+import AboutWindow from './AboutWindow'
 import '../styles/WorkSpace.css';
 export default class WorkSpace extends React.Component {
     constructor(props){
@@ -36,7 +37,8 @@ export default class WorkSpace extends React.Component {
             },
             notes: props.appData.notes,
             editorContent: props.appData.editorContent,
-            toDoItems: props.appData.todoState
+            toDoItems: props.appData.todoState,
+            isOpen: this.props.appData.isOpen
         };
         if(props.appData.defaultTab){
             defaultState.icons = defaultState.icons.map( (i) => { 
@@ -53,7 +55,8 @@ export default class WorkSpace extends React.Component {
             this.setState({
                 notes: nextProps.appData.notes, 
                 editorContent: nextProps.appData.editorContent, 
-                toDoItems: nextProps.appData.todoState 
+                toDoItems: nextProps.appData.todoState,
+                isOpen:nextProps.appData.isOpen
             }, () => {
                 this.setState({
                     icons: this.state.icons.map(a => a.name === nextProps.appData.defaultTab ? {...a, isSelected: true } : {...a, isSelected: false } )
@@ -88,7 +91,9 @@ export default class WorkSpace extends React.Component {
                     {this.state.stickyNotes.isSelected ? <ReactStickyNotes notes={this.state.notes} onChange= { (type, payload, newNotes) => { this.setState({notes: newNotes}, ()=>{this.props.callBacks.noteChangeCallback(type, payload, newNotes) }) } } /> : null}
                     {this.state.toDo.isSelected ? <TodoMeter toDoItems= {this.state.toDoItems} itemChangeCallback = {this.props.callBacks.todoChangeCallback} /> : null }
                 </div>
+                <AboutWindow onAboutChange = {this.props.callBacks.onAboutChange} isOpen = {this.state.isOpen}/>
             </div>
+            
         );
     }
 }

@@ -13,7 +13,7 @@ export default class App extends React.Component
     {
         super(props)
         this.state = ipcRenderer.sendSync('getAppState', this.getDateKeyString(new Date()));
-        this.state = {...this.state, doOpen: false, defaultTab: "noteBook"}
+        this.state = {...this.state, doOpen: false, defaultTab: "noteBook", aboutIsOpen: false }
         this.onDateChange = this.onDateChange.bind(this);
         this.onNoteChange = this.onNoteChange.bind(this);
         this.onEditorChange = this.onEditorChange.bind(this);
@@ -23,6 +23,7 @@ export default class App extends React.Component
         this.toggleDoOpen = this.toggleDoOpen.bind(this);
         this.serilizeAndStoreState = this.serilizeAndStoreState.bind(this);
         this.onUpdateDefaultTab = this.onUpdateDefaultTab.bind(this);
+        this.onAboutConfigChange = this.onAboutConfigChange.bind(this);
     }
     onDateChange (newDate, tabToOpen)  {
         this.serilizeAndStoreState()
@@ -53,6 +54,7 @@ export default class App extends React.Component
         let val = Object.assign({},this.state);
         delete val.doOpen;
         delete val.defaultTab;
+        delete val.aboutWinConfig;
         ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
         return val;
     }
@@ -73,26 +75,32 @@ export default class App extends React.Component
     toggleDoOpen(newDoOpen){
         this.setState({doOpen: newDoOpen});
     }
+    onAboutConfigChange(newAboutIsOpen){
+        this.setState({ aboutIsOpen: newAboutIsOpen });
+    }
     render(){
         return(
             [
-                <TitleBar date = {this.state.date} dateChangeCallBack = {this.onDateChange}/>,
-                <WorkSpace appData = {{
+                <TitleBar key="title" date = {this.state.date} dateChangeCallBack = {this.onDateChange} openAbout = {this.onAboutConfigChange}/>,
+                <WorkSpace key="workSpace" appData = {{
                         date: this.state.date,
                         notes: this.state.notes, 
                         editorContent: this.state.editorState, 
                         todoState: this.state.todoState,
-                        defaultTab: this.state.defaultTab
+                        defaultTab: this.state.defaultTab,
+                        isOpen: this.state.aboutIsOpen
                     }} 
                     callBacks = {{
                         noteChangeCallback: this.onNoteChange,
                         editorChangeCallback: this.onEditorChange,
                         todoChangeCallback: this.onTodoChange,
                         openSearchCallback: this.onDoOpenSearch,
-                        updateDefaultTabCallback: this.onUpdateDefaultTab
+                        updateDefaultTabCallback: this.onUpdateDefaultTab,
+                        onAboutChange: this.onAboutConfigChange
                     }} />,
-                <div className="footer"></div>,
-                <Spotlight searchHit={this.searchHit} doOpen = {this.state.doOpen} toggleDoOpen = {this.toggleDoOpen}/>        
+                <div key="footer" className="footer"></div>,
+                <Spotlight key="spotLight" searchHit={this.searchHit} doOpen = {this.state.doOpen} toggleDoOpen = {this.toggleDoOpen}/>,
+                
             ]
         );
     }

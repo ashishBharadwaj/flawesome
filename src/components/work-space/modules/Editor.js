@@ -31,7 +31,7 @@ class Editor extends React.Component{
     }
     render(){
         return(
-                <ReactQuill 
+                <ReactQuill
                     theme={Editor.theme}
                     onChange={this.handleChange}
                     value={this.state.editorContent}

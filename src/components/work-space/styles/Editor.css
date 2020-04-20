@@ -12,7 +12,7 @@
     background-color: #f4efef;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 10;
 }
 @keyframes slidedown {
     0% {

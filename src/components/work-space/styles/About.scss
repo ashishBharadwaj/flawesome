@@ -1,0 +1,71 @@
+@import "./variables.scss";
+@import "~@blueprintjs/core/src/common/react-transition";
+
+.ab_AW_logo{
+    width: 150px;
+    height: 150px;
+    margin-top: -10px;
+}
+.ab_AW_winContent h4, .ab_AW_winContent h3{
+    text-align: center;
+}
+.ab_AW_copyRight{
+    text-align: center;
+    color: #182026;
+    font-size: medium;
+    font-weight: bold;
+}
+#ab_AW_description{
+    text-align: center;
+    font-size: small;
+    color: blue;
+}
+.ab_AW_winContent p{
+    color: #999;
+    text-align: center;
+    font-size: smaller;
+}
+.ab_AW_winContent img{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+.ab_AW_closeButton{
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+}
+.docs-overlay-example-transition {
+    
+    $overlay-example-width: $pt-grid-size * 40;
+    $enter: (
+      transform: (translateY(-50vh) rotate(-10deg), translateY(0) rotate(0deg))
+    );
+    $leave: (
+      transform: (translateY(150vh) rotate(-20deg), translateY(0) rotate(0deg))
+    );
+  
+    @include react-transition-phase(
+      "#{$ns}-overlay",
+      "enter",
+      $enter,
+      $pt-transition-duration * 3,
+      $pt-transition-ease-bounce,
+      $before: "&"
+    );
+    @include react-transition-phase(
+      "#{$ns}-overlay",
+      "exit",
+      $leave,
+      $pt-transition-duration * 5,
+      $before: "&"
+    );
+  
+    top: 0;
+    left: calc(50vw - #{$overlay-example-width / 2});
+    margin: 30vh 0;
+    align-items: center;
+    justify-content: center;
+    width: $overlay-example-width;
+    padding: 10px;
+  }
