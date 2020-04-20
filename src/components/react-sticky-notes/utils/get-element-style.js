@@ -8,7 +8,8 @@ export function getElementStyle(nodeName, props, defaultStyle={}) {
                     position: 'relative',
                     width: props.containerWidth, 
                     height: props.containerHeight, 
-                    backgroundColor: props.backgroundColor
+                    backgroundColor: props.backgroundColor,
+                    marginTop: '10px'
                 }
         break;
         case "note":

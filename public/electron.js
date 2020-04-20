@@ -1,5 +1,4 @@
-const openAboutWindow = require('about-window').default;
-const {app, BrowserWindow, Menu,shell, ipcMain, screen } = require('electron');
+const {app, BrowserWindow, Menu, ipcMain, screen } = require('electron');
 
 const Store = require('./store');
 const join = require('path').join;
@@ -10,17 +9,11 @@ let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
     date: d,
     editorState: "",
     notes: [],
-    todoState:{
-        tasksRemaining: 0,
-        tasks:[]                    
-    }}) + '}');
+    todoState:[]}) + '}');
 let store = new Store({
         name: process.env.IS_DEV ? 'donnaDbDev' : 'donnaDb',
         defaults: defaultAppState
-    });
-//  console.log("Logging default state : ");
-//  console.log(defaultAppState);
-//  console.log(store);
+});
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -29,7 +22,7 @@ app.on('window-all-closed', () => {
 })
 function createWindow () {   
     const {width, height} = screen.getPrimaryDisplay().size;
-    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: { nodeIntegration: true}/*, frame: false,titleBarStyle: 'hidden'*/ });
+    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: { nodeIntegration: true}, frame: false, titleBarStyle: 'hidden' });
     const startUrl = process.env.ELECTRON_START_URL || join(__dirname, './index.html')
     win.loadURL(startUrl);
     win.once('ready-to-show', () => {
@@ -77,57 +70,9 @@ function createWindow () {
         selectionMenu.popup(win);
     }
     })
-    
-
-    const mainMenu = Menu.buildFromTemplate([
-        {
-            label:"Tools",
-            submenu:[
-                {
-                    label: "Search (ctrl+space)",
-                    click:()=>{
-                        win.webContents.send("open-search")
-                    }
-                }
-            ]
-        },
-        {
-            label: "About",
-            submenu:[
-                {
-                    label: "About donna.ai",
-                    click:()=>{
-                        openAboutWindow(
-                            {
-                                icon_path:join(__dirname, './icon.png'),
-                                product_name: 'donna.ai',
-                                copyright:'Copyright (c) 2020 Ashish Bharadwaj J',
-                                package_json_dir: join(__dirname, '../'),
-                                adjust_window_size: true,
-                                win_options: {
-                                    parent: win,
-                                    modal: true,
-                                    show: false
-                                },
-                                show_close_button: 'Close',
-                            }
-                        );
-
-                    }
-                                     
-                },
-                {type:'separator'}, 
-                {
-                    label: "Report A Bug ?",
-                    click:()=> { 
-                        shell.openExternal('https://docs.google.com/forms/d/e/1FAIpQLSeUpOj6hMS8H8sfiju7OzADnb8Q7Frw5Bw55tmYMSIuA4NJpQ/viewform?usp=sf_link')
-                    } 
-                }
-            ]
-        }
-    ]);
-    Menu.setApplicationMenu(mainMenu);
-    // win.webContents.openDevTools();
+    if(process.env.IS_DEV){
+        win.webContents.openDevTools();
+    }
     // and load the index.html of the app.     win.loadFile('index.html')   
 } 
 async function filterSearchTerm(searchTerm){
@@ -152,44 +97,44 @@ function getArrangedData(data){
                         {
                             dateKey: key, 
                             searchContent: cleanState, 
-                            elementType: 'Editor', 
+                            elementType: 'noteBook', 
                             elementProps:{}
                         }
                     );
-                }
-                for(let todoKey in dat.todoState.tasks){
-                    if(dat.todoState.tasks.hasOwnProperty(todoKey)){
-                        if(dat.todoState.tasks[todoKey].title){
-                            newData.push(
-                                {
-                                    dateKey: key, 
-                                    searchContent: dat.todoState.tasks[todoKey].title, 
-                                    elementType: 'TodoList', 
-                                    elementProps: {
-                                        index: todoKey, 
-                                        isComplete: dat.todoState.tasks[todoKey].complete
-                                    }
+                }                
+            }
+            for(let todoKey in dat.todoState){
+                if(dat.todoState.hasOwnProperty(todoKey)){
+                    if(dat.todoState[todoKey].text){
+                        newData.push(
+                            {
+                                dateKey: key, 
+                                searchContent: dat.todoState[todoKey].text, 
+                                elementType: 'toDo', 
+                                elementProps: {
+                                    index: todoKey, 
+                                    status: dat.todoState[todoKey].status
                                 }
-                            );
-                        }
-                    }                        
-                }
-                for(let noteKey in dat.notes){
-                    if(dat.notes.hasOwnProperty(noteKey)){
-                        let note = dat.notes[noteKey];
-                        if(note.text){
-                            newData.push(
-                                {
-                                    dateKey: key, 
-                                    searchContent: note.text,
-                                    elementType: 'Notes', 
-                                    elementProps: {
-                                        id: note.id,
-                                        index: noteKey
-                                    }
+                            }
+                        );
+                    }
+                }                        
+            }
+            for(let noteKey in dat.notes){
+                if(dat.notes.hasOwnProperty(noteKey)){
+                    let note = dat.notes[noteKey];
+                    if(note.text){
+                        newData.push(
+                            {
+                                dateKey: key, 
+                                searchContent: note.text,
+                                elementType: 'stickyNotes', 
+                                elementProps: {
+                                    id: note.id,
+                                    index: noteKey
                                 }
-                            );
-                        }
+                            }
+                        );
                     }
                 }
             }
@@ -198,8 +143,4 @@ function getArrangedData(data){
     }
 
     return newData;
-}
-function closeApp()
-{
-    app.quit();
 }

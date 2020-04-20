@@ -1,151 +1,107 @@
 import React from 'react';
+import TitleBar from './components/title-bar';
+import WorkSpace from './components/work-space';
 import './App.css';
-import {
-  ReflexContainer,
-  ReflexSplitter,
-  ReflexElement
-} from 'react-reflex';
-import 'react-reflex/styles.css';
-import Editor  from './Editor';
-import TodoApp from './Todo';
-import InfiniteCalendar from 'react-infinite-calendar';
-import 'react-infinite-calendar/styles.css'; // ake sure to import the default stylesheet
-import ReactStickyNotes from './components/react-sticky-notes';
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Spotlight from "./components/spotlight-search/Spotlight";
-
-library.add(faSearch);
 const ipcRenderer = window.electron.ipcRenderer;
-
-class App extends React.Component {
- constructor(props)
- {
-   super(props);
-   this.state = ipcRenderer.sendSync('getAppState', this.getDateKeyString(new Date()));
-   this.onNoteChange = this.onNoteChange.bind(this);
-   this.onDateChange = this.onDateChange.bind(this);   
-   this.onResizePane = this.onResizePane.bind(this);
-   this.editorChangehandler = this.editorChangehandler.bind(this);
-   this.todoChangeHandler = this.todoChangeHandler.bind(this);
-   this.searchHit = this.searchHit.bind(this);
-   this.layoutState = this.getLayoutState();
- }
- 
-
-getLayoutState () {
-
-  const item = window.localStorage.getItem("re-flex-config")
-  if (item) {
-
-    return JSON.parse(item)
-  }
-  return {
-    calPane: {
-      flex: 0.57
-    },
-    rightPane: {
-      flex: 0.6
-    },
-    editorPane:
+library.add(faSearch);
+export default class App extends React.Component
+{
+    constructor(props)
     {
-      flex: 0.57
+        super(props)
+        this.state = ipcRenderer.sendSync('getAppState', this.getDateKeyString(new Date()));
+        this.state = {...this.state, doOpen: false, defaultTab: "noteBook", aboutIsOpen: false }
+        this.onDateChange = this.onDateChange.bind(this);
+        this.onNoteChange = this.onNoteChange.bind(this);
+        this.onEditorChange = this.onEditorChange.bind(this);
+        this.onTodoChange = this.onTodoChange.bind(this);
+        this.searchHit = this.searchHit.bind(this);
+        this.onDoOpenSearch = this.onDoOpenSearch.bind(this);
+        this.toggleDoOpen = this.toggleDoOpen.bind(this);
+        this.serilizeAndStoreState = this.serilizeAndStoreState.bind(this);
+        this.onUpdateDefaultTab = this.onUpdateDefaultTab.bind(this);
+        this.onAboutConfigChange = this.onAboutConfigChange.bind(this);
     }
-  }
+    onDateChange (newDate, tabToOpen)  {
+        this.serilizeAndStoreState()
+        let nextstate = ipcRenderer.sendSync('getAppState',this.getDateKeyString(newDate));  
+        if(tabToOpen){
+            this.setState({...nextstate, defaultTab: tabToOpen});
+        }else{
+            this.setState(nextstate);
+        }
+        
+    }
+    onEditorChange(newContent, delta, source, editor)
+    {
+        this.setState({ editorState: newContent}, () => { this.serilizeAndStoreState() });
+    }
+    onNoteChange (type, payload, newNotes) {
+        this.setState({ notes: newNotes}, () => { this.serilizeAndStoreState() });
+    }  
+    onTodoChange(newTodoState)
+    {
+        this.setState({todoState: newTodoState}, () => { this.serilizeAndStoreState() });
+    }
+    onUpdateDefaultTab(newDefaultTab){
+        this.setState({defaultTab: newDefaultTab});
+    }
+    //persits the app State
+    serilizeAndStoreState(){
+        let val = Object.assign({},this.state);
+        delete val.doOpen;
+        delete val.defaultTab;
+        delete val.aboutWinConfig;
+        ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
+        return val;
+    }
+    getDateKeyString(date)
+    {
+        return (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  date.getDate())
+    }
+    
+    // callback func when search itrem is clicked 
+    searchHit(searchItem){
+        this.onDateChange(new Date(searchItem.dateKey), searchItem.elementType);
+    }
+    //callback func to open Spotlight Search when search icon is clicked in sidebar
+    onDoOpenSearch(){
+        this.setState({doOpen: !this.state.doOpen});
+    }
+    //callback func to toggle search open state when it is changed in Spotlight component
+    toggleDoOpen(newDoOpen){
+        this.setState({doOpen: newDoOpen});
+    }
+    onAboutConfigChange(newAboutIsOpen){
+        this.setState({ aboutIsOpen: newAboutIsOpen });
+    }
+    render(){
+        return(
+            [
+                <TitleBar key="title" date = {this.state.date} dateChangeCallBack = {this.onDateChange} openAbout = {this.onAboutConfigChange}/>,
+                <WorkSpace key="workSpace" appData = {{
+                        date: this.state.date,
+                        notes: this.state.notes, 
+                        editorContent: this.state.editorState, 
+                        todoState: this.state.todoState,
+                        defaultTab: this.state.defaultTab,
+                        isOpen: this.state.aboutIsOpen
+                    }} 
+                    callBacks = {{
+                        noteChangeCallback: this.onNoteChange,
+                        editorChangeCallback: this.onEditorChange,
+                        todoChangeCallback: this.onTodoChange,
+                        openSearchCallback: this.onDoOpenSearch,
+                        updateDefaultTabCallback: this.onUpdateDefaultTab,
+                        onAboutChange: this.onAboutConfigChange
+                    }} />,
+                <div key="footer" className="footer"></div>,
+                <Spotlight key="spotLight" searchHit={this.searchHit} doOpen = {this.state.doOpen} toggleDoOpen = {this.toggleDoOpen}/>,
+                
+            ]
+        );
+    }
 }
-
-onResizePane (event) {
-  const { name, flex } = event.component.props
-  this.layoutState[name].flex = flex
-  window.localStorage.setItem(
-    "re-flex-config",
-      JSON.stringify(this.layoutState))
-}
-onDateChange (newDate)  {
-  let val = Object.assign({},this.state);
-  ipcRenderer.send('storeAppState', this.getDateKeyString(val.date),JSON.stringify(val));
-  let nextstate = ipcRenderer.sendSync('getAppState',this.getDateKeyString(newDate));  
-  this.setState(nextstate);
-}
-getDateKeyString(date)
-{
-  return (date.getFullYear() + "-" + (date.getMonth() + 1) + "-" +  date.getDate())
-}
-onNoteChange (type, payload, newNotes) {
-  this.setState({ notes: newNotes}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state))});
-}  
-editorChangehandler(newContent)
-{
-  this.setState({ editorState: newContent}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) });
-}
-todoChangeHandler(newTodoState)
-{
-  this.setState({todoState: newTodoState}, ()=>{ ipcRenderer.send('storeAppState', this.getDateKeyString(this.state.date),JSON.stringify(this.state)) })
-}
-searchHit(searchItem){
-  this.onDateChange(new Date(searchItem.dateKey));
-}
-  render(){
-    return(
-        [<ReflexContainer orientation="vertical" className="appContainer">
-
-          <ReflexElement maxSize={400}>
-            <ReflexContainer orientation="horizontal">
-              <ReflexElement flex={this.layoutState.calPane.flex}
-                onResize={this.onResizePane}
-                name="calPane"
-                maxSize={420}>
-                <div className="pane-content calendarContainer">
-                  <InfiniteCalendar
-                    width={'100%'}
-                    height={265}
-                    selected={this.state.date}
-                    onSelect= {this.onDateChange}
-                  />
-                </div>
-              </ReflexElement>
-
-              <ReflexSplitter/>
-
-              <ReflexElement className="bottom-pane">              
-                <div className="pane-content" style={{padding: '0.5em', overflowX:'hidden', minWidth: '287px'}}>
-                    <TodoApp todoContent={this.state.todoState} taskChanged={this.todoChangeHandler}/>
-                </div>
-              </ReflexElement>
-
-            </ReflexContainer>
-          </ReflexElement>
-
-          <ReflexSplitter/>
-
-          <ReflexElement>
-            <ReflexContainer orientation="horizontal">
-
-              <ReflexElement flex={this.layoutState.editorPane.flex}
-                onResize={this.onResizePane}
-                name="editorPane">
-                <div className="pane-content" style={{padding:'0.5em', height:'88%'}}>
-                  <Editor editorContent={this.state.editorState} editorChange={this.editorChangehandler} />
-                </div>
-
-              </ReflexElement>
-
-              <ReflexSplitter/>
-
-              <ReflexElement className="bottom-pane">
-                <div className="pane-content" style={{padding:'0.5em'}}>
-                  <ReactStickyNotes notes={this.state.notes}
-                      onChange={this.onNoteChange} />
-                </div>
-              </ReflexElement>
-
-            </ReflexContainer>
-
-          </ReflexElement>
-        </ReflexContainer>,
-        <Spotlight searchHit={this.searchHit}/>]
-              
-    );
-  }  
-}
-export default App;

@@ -26,10 +26,7 @@ class Store {
         date: new Date(key),
         editorState: "",
         notes: [],
-        todoState:{
-            tasksRemaining: 0,
-            tasks:[]                    
-        }
+        todoState:[]
       }
       // console.log("Key "+ key + " is NOT defined returning value : ")
       // console.log(this.data[key])

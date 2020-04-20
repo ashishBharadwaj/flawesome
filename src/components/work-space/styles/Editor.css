@@ -1,0 +1,26 @@
+.quill{
+    height: 100%;
+    display: grid;
+    grid-template-rows: 40px auto;
+    background-color: #fff;
+    animation: slidedown 1s;
+}
+.ql-editor{
+    background-color: #fff;
+}
+.ql-toolbar{
+    background-color: #f4efef;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+@keyframes slidedown {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+}

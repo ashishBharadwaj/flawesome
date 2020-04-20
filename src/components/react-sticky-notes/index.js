@@ -14,7 +14,7 @@ class ReactStickyNotes extends Component {
 		noteWidth: 220,
 		noteHeight: 220,
 		containerWidth: '100%',
-		containerHeight: '100%',
+		containerHeight: '94%',
 		icons,
 		useMaterialIcons: true
 	}
@@ -29,15 +29,6 @@ class ReactStickyNotes extends Component {
 	componentDidMount(){
 		if(this.props.useCSS){
 			require('./index.scss');
-		}
-		if(this.props.useMaterialIcons){
-			const stylesheet = document.createElement('link');
-			stylesheet.href = "https://fonts.googleapis.com/icon?family=Material+Icons";
-			stylesheet.rel="stylesheet";
-			stylesheet.id="material-icons-css";
-			if(!document.getElementById('material-icons-css')){
-				document.head.appendChild(stylesheet);
-			}
 		}
 	}
 	componentWillReceiveProps(nextProps){

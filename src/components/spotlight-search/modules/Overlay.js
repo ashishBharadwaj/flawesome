@@ -3,7 +3,7 @@ import styled from "styled-components";
 import media from "../utils/media";
 
 export default styled.div`
-  top: 20%;
+  top: 30%;
   left: 1%;
   width: 98%;
   z-index: 100;

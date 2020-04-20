@@ -25,10 +25,10 @@ class Spotlight extends Component {
   state = {
     ...DEFAULT_STATE,
     toggle: () => {
-      this.setState({ ...DEFAULT_STATE, isOpen: !this.state.isOpen });
+      this.setState({ ...DEFAULT_STATE, isOpen: !this.state.isOpen },()=>{ this.props.toggleDoOpen(this.state.isOpen) });
     },
     clearSearch: (close = false) => {
-      this.setState({ ...DEFAULT_STATE, isOpen: !close });
+      this.setState({ ...DEFAULT_STATE, isOpen: !close },()=>{ this.props.toggleDoOpen(this.state.isOpen) });
     },
     selectHit: selectedResultIndex => {
       this.setState({ selectedResultIndex }, () => {this.props.searchHit(this.state.flatHits[selectedResultIndex]); this.state.toggle();});
@@ -132,6 +132,12 @@ class Spotlight extends Component {
     this.state.toggle();
   };
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps !== this.props){
+      this.props = nextProps;
+      this.setState({isOpen: nextProps.doOpen});
+    }    
+  }
   componentWillUnmount() {
     document.body.removeEventListener("keydown", this._listenKey);
   }
@@ -146,7 +152,7 @@ class Spotlight extends Component {
 
     return (
       <SpotlightContext.Provider value={this.state}>
-        <Overlay>
+        <Overlay className="ab_SP_Search">
           <SearchBar />
           <Hits />
         </Overlay>
