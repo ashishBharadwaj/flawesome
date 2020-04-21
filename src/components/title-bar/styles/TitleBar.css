@@ -7,6 +7,10 @@
     -webkit-app-region: drag;
 }
 
+.ab_TitleBar .bp3-popover-wrapper{
+    height: 35px;
+}
+
 /*  Window control Styles  */
 .ab_TB_WinControls
 {
@@ -113,7 +117,6 @@
     background: url("../media/history.svg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 21px 21px;
     margin-top: 8px;
     margin-left: 5px;
     background-color: #394B59;
@@ -150,6 +153,7 @@
     background: url("../media/next.svg");
     background-repeat: no-repeat;
     background-position: center center;
+    background-size: 20px 20px;
     margin-top: 8px;
     margin-left: 5px;
     background-color: #394B59;
