@@ -34,8 +34,8 @@ export default class AboutWindow extends React.Component{
                 <div className={Classes.CARD  + " " + Classes.ELEVATION_4 + " docs-overlay-example-transition"}>
                     <div className="ab_AW_winContent">                        
                         <img src={logo} className="ab_AW_logo" alt="logo"/>
-                        <H4>About donna.ai</H4>
-                        <p id="ab_AW_description"> donna.ai is a productivity tool that will help you organize your day today work and thoughts.</p>
+                        <H4>About Flawesome</H4>
+                        <p id="ab_AW_description"> Flawesome is a modern productivity tool that will help you organise your day-today work and thoughts.</p>
                         <p> Product Version : {this.state.productVersion} </p>
                         <p> Electron Version : {this.state.electronVersion}</p>
                         <p> Chrome Version : {this.state.chromeVersion}</p>

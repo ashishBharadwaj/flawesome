@@ -1,7 +1,8 @@
 {
-  "name": "donna.ai",
+  "name": "flawesome",
   "version": "0.2.0",
-  "private": true,
+  "private": false,
+  "license": "MIT",
   "author": {
     "name": "Ashish Bharadwaj J",
     "email": "ashishbharadwaj@icloud.com"
@@ -9,7 +10,7 @@
   "main": "public/electron.js",
   "homepage": "./",
   "icon": "public/icon.png",
-  "description": "donna.ai is a modern productivity tool that will help you organise your day today work and thoughts.",
+  "description": "Flawesome is a modern productivity tool that will help you organise your day-today work and thoughts.",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -61,7 +62,7 @@
   },
   "pre-push": [],
   "build": {
-    "appId": "com.donna.ai",
+    "appId": "com.flawesome.ai",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -69,7 +70,7 @@
     ],
     "publish": {
       "provider": "github",
-      "repo": "donna",
+      "repo": "flawesome",
       "owner": "ashishbharadwaj"
     },
     "win": {

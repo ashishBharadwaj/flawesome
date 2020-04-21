@@ -11,7 +11,7 @@ let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
     notes: [],
     todoState:[]}) + '}');
 let store = new Store({
-        name: process.env.IS_DEV ? 'donnaDbDev' : 'donnaDb',
+        name: process.env.IS_DEV ? 'flawesomeDbDev' : 'flawesomeDb',
         defaults: defaultAppState
 });
 app.on('ready', createWindow);
