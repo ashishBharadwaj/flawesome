@@ -72,7 +72,7 @@
     background-position: center center;
     cursor: pointer;
     width: 50px;
-    height: 38px;
+    height: 35px;
 }
 
 .ab_TB_Options:hover{
@@ -92,7 +92,7 @@
     text-align: center;
     border: none;
     border-radius: 3px;
-    height: 25px;
+    height: 22px;
     background-color: #394B59;
     color: #d4d2d2 ;
 }
@@ -106,7 +106,7 @@
 .ab_TB_resetDate{
     -webkit-app-region: no-drag;
     cursor: pointer;
-    height: 25px;
+    height: 22px;
     width: 32px;
     border: none;
     border-radius: 3px;
@@ -125,7 +125,7 @@
 .ab_TB_PreviousDate{
     -webkit-app-region: no-drag;
     cursor: pointer;
-    height: 25px;
+    height: 22px;
     width: 32px;
     border: none;
     border-radius: 3px;
@@ -143,14 +143,13 @@
 .ab_TB_NextDate{
     -webkit-app-region: no-drag;
     cursor: pointer;
-    height: 25px;
+    height: 22px;
     width: 32px;
     border: none;
     border-radius: 3px;
     background: url("../media/next.svg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 20px 20px;
     margin-top: 8px;
     margin-left: 5px;
     background-color: #394B59;
