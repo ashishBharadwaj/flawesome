@@ -1,0 +1,16 @@
+name: CodeNotary
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout
+       uses: actions/checkout@master
+     
+     - name: Verify
+       uses: vchain-us/verify-action@master
