@@ -14,7 +14,7 @@ Go to release and download the latest application setup
 
 **Currently I have only generated the package for Windows, but soon it will be available for macos and linux aswell.**
 
-# Don't trust the executable? Build the setup your self:
+# Don't trust the executable? Build the setup yourself:
 
     ** Prequisite: Git, Node, Yarn package manager
 
