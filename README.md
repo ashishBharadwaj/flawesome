@@ -15,6 +15,8 @@ All the three application components i.e. The Notebook, The Sticky Notes and The
     Go to release and download the latest application setup
 <img src="assets/ScreenshotRelease.png" alt="Release Screenshot">
 
+**Currently I have only generated the package for Windows, but soon it will be available for macos and linux aswell.**
+
 # Don't trust the executable? Build the setup your self:
 
     ** Prequisite: Git, Node, Yarn package manager
@@ -43,7 +45,7 @@ $ yarn build
 $ yarn package
 ```
 
-** Currently I have only generated the package for Windows, but soon it will be available for macos and linux aswell. **
+
 
 ## License
     MIT Copyright (c) 2020 Ashish Bharadwaj J
