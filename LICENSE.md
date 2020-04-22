@@ -32,6 +32,10 @@ The following libraries are included in Flawesome under [MIT license](h
 These libraries are not directly included in package.json as they needed to modified as per specific needs
 
 [react-sticky-notes](https://github.com/react-latest-ui/react-sticky-notes) Copyright (c) Manmohan Singh
+<Enter>
+
 [react-spotlight](https://github.com/JoaoCnh/react-spotlight) 
+<Enter>
+
 [todometer](https://github.com/cassidoo/todometer) Copyright (c) 2020 Cassidy Williams
 
