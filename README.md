@@ -1,4 +1,3 @@
-{% highlight css %}img{box-shadow:0 0 30px #333;}{% endhighlight %}
 # Flawesome
 Flawesome is a modern productivity tool that will help you organise your day-today work and thoughts.
 All the three application components i.e. The Notebook, The Sticky Notes and The Todolist are driven by the Calendar.
