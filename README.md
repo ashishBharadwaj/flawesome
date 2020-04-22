@@ -3,9 +3,9 @@ Flawesome is a modern productivity tool that will help you organise your day-tod
 
 <img src="assets/ScreenshotTab1.png" alt="Application Tab 1 Screenshot">
 
-<img src="assets/ScreenshotTab2.png" alt="Application Tab 2 Screenshot">
+<img src="assets/ScreenShotTab2.png" alt="Application Tab 2 Screenshot">
 
-<img src="assets/ScreenshotTab3.png" alt="Application Tab 3 Screenshot">
+<img src="assets/ScreenShotTab3.png" alt="Application Tab 3 Screenshot">
 
 # Built Using 
     react & electron
