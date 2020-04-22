@@ -15,6 +15,34 @@ All the three application components i.e. The Notebook, The Sticky Notes and The
     Go to release and download the latest application setup
 <img src="assets/ScreenshotRelease.png" alt="Release Screenshot">
 
+# Don't trust the executable? Build the setup your self:
+
+    ** Prequisite: Git, Node, Yarn package manager
+
+- Clone the repo:
+
+```bash
+$ git clone https://github.com/ashishBharadwaj/flawesome.git
+```
+
+- Install the dependencies:
+
+```bash
+$ yarn install
+```
+
+- Build for production:
+
+```bash
+$ yarn build
+```
+
+- Create Package:
+
+```bash
+$ yarn package
+```
+
 ** Currently I have only generated the package for Windows, but soon it will be available for macos and linux aswell. **
 
 ## License
