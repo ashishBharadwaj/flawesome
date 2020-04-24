@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import reducer from './reducers/reducer';
 import * as icons from './icons';
 import { h, getColorCodes, getNotes, getUUID } from './utils';
@@ -42,7 +42,9 @@ class ReactStickyNotes extends Component {
 				position: {
 					x: 0,
 					y: 0
-				}
+				},
+				width: 220,
+				height:220
 			});
 		}
 		this.props = nextProps;
@@ -83,7 +85,9 @@ class ReactStickyNotes extends Component {
 					position: {
 						x: lastItemX + 5,
 						y: lastItemY + 5
-					}
+					},
+					width:220,
+					height:220 
 				}
 			}
 		});
