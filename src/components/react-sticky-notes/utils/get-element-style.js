@@ -26,8 +26,8 @@ export function getElementStyle(nodeName, props, defaultStyle={}) {
                 }
         break;
         case "note-body":
-            style.width = props.viewSize==="pageview"||props.viewSize==="fullscreen"?"100%":props.noteWidth;
-            style.height = props.viewSize==="pageview"||props.viewSize==="fullscreen"?"100%":props.noteHeight;
+            style.width = props.viewSize==="pageview"||props.viewSize==="fullscreen"?"100%": (props.data.width ? props.data.width :  props.noteWidth);
+            style.height = props.viewSize==="pageview"||props.viewSize==="fullscreen"?"100%": (props.data.height ? props.data.height :  props.noteHeight);
             style.backgroundColor= props.data.color;
             style.overflow = "auto";
             if(props.data.selected){

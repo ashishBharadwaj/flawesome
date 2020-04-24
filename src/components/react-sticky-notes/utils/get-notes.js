@@ -6,6 +6,8 @@ export function getNotes(colorCodes, notes ) {
 			note.id = note.id?note.id:getUUID();
 			note.position = note.position?note.position:{ x: 0, y: 0 };
 			note.color= note.color?note.color:colorCodes[Math.floor(Math.random() * colorCodes.length)];
+			note.width = note.width ? note.width : 220;
+			note.height = note.height ? note.height : 220 ;
 			return note;
 		});
 	}else{
@@ -15,7 +17,9 @@ export function getNotes(colorCodes, notes ) {
 				text: '',
 				position: { x: 0, y: 0 },
 				color: colorCodes[Math.floor(Math.random() * colorCodes.length)],
-				selected:true
+				selected:true,
+				width: 220,
+				height: 220
 			}
 		]
 	}
