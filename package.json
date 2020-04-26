@@ -22,13 +22,14 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "rescripts start",
+    "build": "rescripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && set IS_DEV=true && electron .",
     "electron-start-mac": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "package": "electron-builder build --win -c.extraMetadata.main=build/electron.js --publish never"
+    "pre-package": "yarn build",
+    "package": "electron-builder build --win --publish never",
+    "package-publish": "electron-builder build --win --mac --linux --publish always"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,6 +52,8 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.9",
     "@reach/accordion": "^0.10.0",
+    "@rescripts/cli": "^0.0.14",
+    "@rescripts/rescript-env": "^0.0.12",
     "draft-js": "^0.11.4",
     "electron": "^8.0.2",
     "electron-builder": "^22.4.0",
@@ -62,7 +65,9 @@
   },
   "pre-push": [],
   "build": {
-    "appId": "com.flawesome.ai",
+    "appId": "com.flawesome.app",
+    "productName": "Flawesome",
+    "copyright": "Copyright © 2020 Ashish Bharadwaj J",
     "files": [
       "build/**/*",
       "node_modules/**/*",
@@ -71,11 +76,23 @@
     "publish": {
       "provider": "github",
       "repo": "flawesome",
-      "owner": "ashishbharadwaj"
+      "owner": "ashishbharadwaj",
+      "private": false
     },
     "win": {
       "target": "NSIS",
       "icon": "./build/icon.png"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "./build/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "./build/icon.png"
     }
-  }
+  },
+  "rescripts": [
+    "env"
+  ]
 }
