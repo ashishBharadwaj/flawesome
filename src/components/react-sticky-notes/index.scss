@@ -7,11 +7,13 @@
 @import './partials/note-menu.scss';
 @import './modals/upload-modal.scss';
 @import './views/bubble-view.scss';
+@import './partials/note-body.scss';
 .rs-notes{
     *,*::before,*::after{
         box-sizing: border-box;
     }
     @include notes();
+    @include noteBody();
     @include note();
     @include navbar();
     @include noteHeader();
