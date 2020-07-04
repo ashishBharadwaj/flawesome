@@ -10,7 +10,7 @@ All the three application components i.e. The Notebook, The Sticky Notes and The
 <img src="assets/ScreenShotTab3.png" alt="Application Tab 3 Screenshot"/>
 
 # Download
-Go to [**Release**](https://github.com/ashishBharadwaj/flawesome/releases/tag/v0.2.1) and download the latest application setup by clicking on assets.
+Go to [**Release**](https://github.com/ashishBharadwaj/flawesome/releases/tag/0.2.2) and download the latest application setup by clicking on assets.
 
 **Currently I have only generated the package for Windows, but soon it will be available for macos and linux aswell.**
 
