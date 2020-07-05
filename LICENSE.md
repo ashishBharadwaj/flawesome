@@ -38,4 +38,7 @@ These libraries are not directly included in package.json as they need
 <Enter>
 
 [todometer](https://github.com/cassidoo/todometer) Copyright (c) 2020 Cassidy Williams
+<Enter>
+  
+[image-resize-module](https://github.com/kensnyder/quill-image-resize-module) 
 
