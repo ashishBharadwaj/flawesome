@@ -4,7 +4,6 @@ const Store = require('./store');
 const join = require('path').join;
 const d = new Date();
 const dateKey = (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" +  d.getDate());
-
 let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
     date: d,
     editorState: "",
@@ -22,11 +21,21 @@ app.on('window-all-closed', () => {
 })
 function createWindow () {   
     const {width, height} = screen.getPrimaryDisplay().size;
-    var win = new BrowserWindow({ width: width, height: height, show: false, webPreferences: { nodeIntegration: true}, frame: false, titleBarStyle: 'hidden' });
-    const startUrl = process.env.ELECTRON_START_URL || join(__dirname, './index.html')
+    var win = new BrowserWindow({ 
+        width: width, 
+        height: height, 
+        show: false, 
+        webPreferences: { nodeIntegration: true}, 
+        frame: false, 
+        titleBarStyle: 'hidden',
+        resizable:true,
+        icon: join(__dirname, 'icon.png')
+     });
+    
+    const startUrl = process.env.ELECTRON_START_URL || join('file://',__dirname, './index.html')
     win.loadURL(startUrl);
-    win.once('ready-to-show', () => {
-        win.maximize();  
+    win.webContents.on('did-finish-load', () => {
+        win.maximize(); 
         win.show();
     });
     win.on('closed', () => {

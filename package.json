@@ -22,13 +22,15 @@
     "styled-components": "^5.0.1"
   },
   "scripts": {
-    "start": "rescripts start",
+    "start": "PORT=4041 rescripts start",
     "build": "rescripts build",
     "test": "react-scripts test",
-    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && set IS_DEV=true && electron .",
-    "electron-start-mac": "export ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron-start": "set ELECTRON_START_URL=http://localhost:4041 && set IS_DEV=true && electron .",
+    "electron-start-mac": "export ELECTRON_START_URL=http://localhost:4041 && export IS_DEV=true && electron .",
+    "electron-start-linux": "export ELECTRON_START_URL=http://localhost:4041 && export IS_DEV=true && electron .",
     "pre-package": "yarn build",
     "package": "electron-builder build --win --publish never",
+    "package-linux": "electron-builder build --linux --publish never",
     "package-publish": "electron-builder build --win --mac --linux --publish always"
   },
   "eslintConfig": {
@@ -85,11 +87,19 @@
     },
     "mac": {
       "category": "public.app-category.productivity",
-      "icon": "./build/icon.png"
+      "icon": "./build/icon.icns"
     },
     "linux": {
-      "target": "AppImage",
-      "icon": "./build/icon.png"
+      "icon": "./build/icon.icns",
+      "category": "Productivity",
+      "packageCategory": "Productivity",
+      "target": [   {
+          "target": "deb"
+        },
+        {
+          "target": "AppImage"
+        }
+       ]
     }
   },
   "rescripts": [
