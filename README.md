@@ -13,7 +13,7 @@ All the three application components i.e. The Notebook, The Sticky Notes and The
 
    [**Flawesome v0.2.2 Pre-Release For Windows 64-Bit**](https://github.com/ashishBharadwaj/flawesome/releases/download/0.2.2/Flawesome.Setup.0.2.2.exe)
 
-   [**Flawesome v0.2.2 Pre-Release For Linux (.deb)]**(https://github.com/ashishBharadwaj/flawesome/releases/download/0.2.2/flawesome_amd64_0.2.2.deb)
+   [**Flawesome v0.2.2 Pre-Release For Linux (.deb)**](https://github.com/ashishBharadwaj/flawesome/releases/download/0.2.2/flawesome_amd64_0.2.2.deb)
 
    [**Flawesome v0.2.2 Pre-Release For Linux (.AppImage)**](https://github.com/ashishBharadwaj/flawesome/releases/download/0.2.2/Flawesome-0.2.2.AppImage)
 
