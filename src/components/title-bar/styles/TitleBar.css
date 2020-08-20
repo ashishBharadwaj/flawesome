@@ -161,3 +161,13 @@
 .ab_TB_NextDate:hover{
     filter: brightness(1.3);
 }
+.ab_contentIndicator::before{
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    border-radius: 50%;
+    bottom: 0;
+    left: 45%;
+}
