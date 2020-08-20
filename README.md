@@ -12,7 +12,7 @@ All the three application components i.e. The Notebook, The Sticky Notes and The
 # Download
 
 
-   [**Flawesome v0.2.3 Pre-Release For Linux (.deb)**](https://github.com/ashishBharadwaj/flawesome/releases/download/v0.2.3/flawesome_amd64_0.2.3.deb)
+   [**Flawesome v0.2.3 Pre-Release For Linux (.deb)**](https://github.com/ashishBharadwaj/flawesome/releases/download/v0.2.3/flawesome_0.2.3_amd64.deb)
 
    [**Flawesome v0.2.3 Pre-Release For Linux (.AppImage)**](https://github.com/ashishBharadwaj/flawesome/releases/download/v0.2.3/Flawesome-0.2.3.AppImage) 
 
