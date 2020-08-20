@@ -2,15 +2,12 @@
 const electron = require('electron');
 const path = require('path');
 const fs = require('fs');
-
 class Store {
   
   constructor(opts) {
     const userDataPath = (electron.app || electron.remote.app).getPath('userData');
-    this.path = path.join(userDataPath, opts.name + '.json');
-    
-    this.data = parseDataFile(this.path, opts.defaults);
-    this.defaults = opts.defaults;
+    this.path = path.join(userDataPath, opts.name + '.json');    
+    this.data = parseDataFile(this.path);
     // console.log("Store Initilixed with value :");
     // console.log(this.data);
   }
@@ -18,20 +15,13 @@ class Store {
   get(key) {
     if(this.data[key] !== undefined){
       // console.log("Key "+ key + " is defined with value : ")
-      this.data[key].date = new Date(key)
+      this.data[key].date = new Date(key);
+      return this.data[key];
       // console.log(this.data[key]);
     }
     else{
-      this.data[key] = {
-        date: new Date(key),
-        editorState: "",
-        notes: [],
-        todoState:[]
-      }
-      // console.log("Key "+ key + " is NOT defined returning value : ")
-      // console.log(this.data[key])
+      return;
     }
-    return this.data[key];
   }
   getAll()
   {
@@ -43,17 +33,19 @@ class Store {
   }
   save()
   {
-    fs.writeFileSync(this.path, JSON.stringify(this.data));
+    if(this.data && Object.keys(this.data).length > 0){
+      fs.writeFileSync(this.path, JSON.stringify(this.data));
+    }
   }
 }
 
-function parseDataFile(filePath, defaults) {
+function parseDataFile(filePath) {
   
   try {
     let dat = JSON.parse(fs.readFileSync(filePath));
-    return dat != null ? dat : defaults ;
+    return dat != null ? dat : {} ;
   } catch(error) {
-    return defaults;
+    return {};
   }
 }
 

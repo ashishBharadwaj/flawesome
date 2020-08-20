@@ -2,16 +2,8 @@ const {app, BrowserWindow, Menu, ipcMain, screen } = require('electron');
 
 const Store = require('./store');
 const join = require('path').join;
-const d = new Date();
-const dateKey = (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" +  d.getDate());
-let defaultAppState = JSON.parse('{"' + dateKey + '":' + JSON.stringify({
-    date: d,
-    editorState: "",
-    notes: [],
-    todoState:[]}) + '}');
 let store = new Store({
-        name: process.env.IS_DEV ? 'flawesomeDbDev' : 'flawesomeDb',
-        defaults: defaultAppState
+        name: process.env.IS_DEV ? 'flawesomeDbDev' : 'flawesomeDb'
 });
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
@@ -20,10 +12,9 @@ app.on('window-all-closed', () => {
     }
 })
 function createWindow () {   
-    const {width, height} = screen.getPrimaryDisplay().size;
     var win = new BrowserWindow({ 
-        width: width, 
-        height: height, 
+        width: 1000, 
+        height: 800, 
         show: false, 
         webPreferences: { nodeIntegration: true}, 
         frame: false, 
@@ -35,7 +26,6 @@ function createWindow () {
     const startUrl = process.env.ELECTRON_START_URL || join('file://',__dirname, './index.html')
     win.loadURL(startUrl);
     win.webContents.on('did-finish-load', () => {
-        win.maximize(); 
         win.show();
     });
     win.on('closed', () => {
@@ -53,7 +43,12 @@ function createWindow () {
     ipcMain.handle('getSearchResult', async (event, searchTerm) => {
         const result = await filterSearchTerm(searchTerm)
         return result
-     })
+    })
+
+    ipcMain.on('getSavedDates', (event, arg) => {
+        let data = store.getAll();
+        event.returnValue = Object.keys(data);
+    });
     const selectionMenu = Menu.buildFromTemplate([
         {role: 'copy'},
         {type: 'separator'},
@@ -80,7 +75,7 @@ function createWindow () {
     }
     })
     if(process.env.IS_DEV){
-        win.webContents.openDevTools();
+        //win.webContents.openDevTools();
     }
     // and load the index.html of the app.     win.loadFile('index.html')   
 } 
