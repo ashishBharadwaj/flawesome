@@ -1,4 +1,4 @@
-# Flawesome
+# Flawesome v0.2.3 Pre-Release
 Flawesome is a cross platform modern productivity tool that will help you organise your day-today work and thoughts.
 <br>
 All the three application components i.e. The Notebook, The Sticky Notes and The Todolist are driven by the Calendar. This makes it more like a digital diary with some additional features.
