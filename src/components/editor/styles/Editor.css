@@ -1,0 +1,75 @@
+
+  
+  .tabs{
+    margin: 0;
+    list-style-type : none;
+    line-height : 30px;
+    max-height: 30px;
+    overflow: hidden;
+    display: flex;
+    padding-right: 20px;   
+  }
+  
+  .tabs > .active{
+    z-index: 2;
+    background: #efefef;
+  }
+  
+  .tabs > .active:before{
+    border-color : transparent #efefef transparent transparent;
+  }
+  
+  
+  .tabs > .active:after{
+    border-color : transparent transparent transparent #efefef;
+  }
+  
+  .tabs > .tab{
+    margin : 5px -10px 0;
+    border-top-right-radius: 25px 170px;
+    border-top-left-radius: 20px 90px;
+    padding : 0 30px 0 25px;
+    height: 170px;
+    background: #ddd;
+    position : relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,.5);
+    max-width : 120px;
+  }
+  .tab:first-child{
+    margin-left:0px;
+  }
+  .tabs > .tab > input{
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: #222;
+    outline:none;
+    border:none;
+    background:none;
+    cursor:pointer;
+  }
+  
+  .tabs > .tab:before{
+    content : '';
+    background : transparent;
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    border-width: 10px;
+    top: -1px;
+    border-style : solid;
+    position : absolute;
+  }
+  
+  .tabs > .tab:before{
+    border-color : transparent #ddd transparent transparent;
+    -webkit-transform : rotate(48deg);
+    left: -22px;
+  }
+  
+  .tabs > .tab:after{
+    border-color : transparent transparent transparent #ddd;
+    -webkit-transform : rotate(-48deg);
+    right: -16px;
+  }

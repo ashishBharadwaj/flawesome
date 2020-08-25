@@ -1,5 +1,5 @@
 import React from 'react';
-import Editor from './Editor';
+import Editor from '../../editor';
 import ReactStickyNotes from '../../react-sticky-notes';
 import TodoMeter from '../../todo-meter';
 import AboutWindow from './AboutWindow'
@@ -87,7 +87,10 @@ export default class WorkSpace extends React.Component {
                     <div className="ab_SB_SearchIconContainer" onClick = { this.props.callBacks.openSearchCallback }></div>
                 </div>
                 <div className="ab_appContainer">
-                    {this.state.noteBook.isSelected ? <Editor editorContent={this.state.editorContent} onChangeCallback = {this.props.callBacks.editorChangeCallback}/> : null}
+                    {
+                        this.state.noteBook.isSelected ? /*<Editor editorContent={this.state.editorContent} onChangeCallback = {this.props.callBacks.editorChangeCallback}/>*/ 
+                            <Editor/>: 
+                            null}
                     {this.state.stickyNotes.isSelected ? <ReactStickyNotes notes={this.state.notes} onChange= { (type, payload, newNotes) => { this.setState({notes: newNotes}, ()=>{this.props.callBacks.noteChangeCallback(type, payload, newNotes) }) } } /> : null}
                     {this.state.toDo.isSelected ? <TodoMeter toDoItems= {this.state.toDoItems} itemChangeCallback = {this.props.callBacks.todoChangeCallback} /> : null }
                 </div>
