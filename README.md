@@ -51,7 +51,7 @@ $ yarn package
 ```
 
 ## License
-    MIT Copyright (c) 2020 Ashish Bharadwaj J
+    GNU General Public License v3.0 (c) 2020 Ashish Bharadwaj J
     Refer to License.md file for details
 
 ## Like my work ? Want to support ?
