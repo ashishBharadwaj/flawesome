@@ -13,8 +13,8 @@ app.on('window-all-closed', () => {
 })
 function createWindow () {   
     var win = new BrowserWindow({ 
-        width: 1000, 
-        height: 800, 
+        width: 1200, 
+        height: 810, 
         show: false, 
         webPreferences: { nodeIntegration: true}, 
         frame: false, 
