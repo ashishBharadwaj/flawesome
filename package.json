@@ -57,7 +57,7 @@
     "@rescripts/cli": "^0.0.14",
     "@rescripts/rescript-env": "^0.0.12",
     "draft-js": "^0.11.4",
-    "electron": "^9.4.0",
+    "electron": "^11.5.0",
     "electron-builder": "^22.7.0",
     "flatpickr": "^4.6.3",
     "lodash-es": "^4.17.15",
